@@ -88,6 +88,7 @@ namespace ConsoleAppPruebaDehu
 
         private static async void GetNotificacionesLocalizacion()
         {
+            //Prueba david Hola Dehu
             LocalizaRequest requestLocaliza = new LocalizaRequest();
             Localiza objLocaliza = new Localiza();
             BasicHttpBinding binding = new BasicHttpBinding();
