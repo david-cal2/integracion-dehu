@@ -816,11 +816,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dcalero\\source\\repos\\david-test-dehu\\ConsoleAppPruebaDehu.csproj",
-      "projectName": "ConsoleAppPruebaDehu",
-      "projectPath": "C:\\Users\\dcalero\\source\\repos\\david-test-dehu\\ConsoleAppPruebaDehu.csproj",
+      "projectUniqueName": "C:\\Users\\dcalero\\source\\repos\\david-test-dehu\\david-test-dehu\\david-test-dehu.csproj",
+      "projectName": "david-test-dehu",
+      "projectPath": "C:\\Users\\dcalero\\source\\repos\\david-test-dehu\\david-test-dehu\\david-test-dehu.csproj",
       "packagesPath": "C:\\Users\\dcalero\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dcalero\\source\\repos\\david-test-dehu\\obj\\",
+      "outputPath": "C:\\Users\\dcalero\\source\\repos\\david-test-dehu\\david-test-dehu\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dcalero\\AppData\\Roaming\\NuGet\\NuGet.Config",
