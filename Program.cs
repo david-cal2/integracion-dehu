@@ -83,51 +83,69 @@ namespace ConsoleAppPruebaDehu
     {
         static void Main(string[] args)
         {
-            GetNotificacionesLocalizacion();
+            Console.WriteLine("Hola Dehú - Inicio proceso Localiza");
+            GetNotificacionesLocaliza();
         }
 
-        private static async void GetNotificacionesLocalizacion()
-        {
-            //Prueba david Hola Dehu
-            LocalizaRequest requestLocaliza = new LocalizaRequest();
-            Localiza objLocaliza = new Localiza();
-            BasicHttpBinding binding = new BasicHttpBinding();
-            System.ServiceModel.EndpointAddress remoteAddress = new System.ServiceModel.EndpointAddress("http://localhost/");
-            DEHuWsPortTypeClient t = new DEHuWsPortTypeClient(binding, remoteAddress);
-            System.Threading.Tasks.Task<ServiceReference1.LocalizaResponse> respuestaLocaliza = t.LocalizaAsync(objLocaliza);
-
-            var url = $"https://se-dehuws.redsara.es/wsdl/GD_Dehu/v2/Gd-Dehu-Ws_se.wsdl";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
+        private static void GetNotificacionesLocaliza()
+        {     
             try
             {
-                using (WebResponse response = request.GetResponse())
+                LocalizaRequest requestLocaliza = new LocalizaRequest();
+                Localiza objLocaliza = new Localiza();
+
+                BasicHttpBinding binding = new BasicHttpBinding();
+                System.ServiceModel.EndpointAddress remoteAddress = new System.ServiceModel.EndpointAddress("http://localhost/");
+                DEHuWsPortTypeClient client = new DEHuWsPortTypeClient(binding, remoteAddress);
+
+                //ServiceReference1.LocalizaResponse responseLocaliza = await client.LocalizaAsync(objLocaliza);
+                System.Threading.Tasks.Task<ServiceReference1.LocalizaResponse> responseLocaliza = client.LocalizaAsync(objLocaliza);
+                if (responseLocaliza.IsCompleted)
                 {
-                    using (Stream strReader = response.GetResponseStream())
-                    {
-                        if (strReader == null) return;
-                        using (StreamReader objReader = new StreamReader(strReader))
-                        {
-                            var client = new RestClient(url);
-                            RestRequest respuesta = new RestRequest();
-                            var response2 = client.ExecuteAsync<PeticionLocaliza>(respuesta);
-
-                            //var repositories = await JsonSerializer.DeserializeAsync<RespuestaLocaliza>(strReader);
-                            //Console.WriteLine(repositories);
-
-                            //string responseBody = objReader.ReadToEnd();
-                            // Do something with responseBody
-                            //Console.WriteLine(responseBody);
-                        }
-                    }
-                }
+                    Console.WriteLine(responseLocaliza.Result);
+                    //Grabar en bbdd
+                    //responseLocaliza.Result.RespuestaLocaliza.
+                }  
+                else
+                    Console.WriteLine(responseLocaliza.Status);
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                // Handle error
+                Console.WriteLine(ex.Message);
             }
+
+            //var url = $"https://se-dehuws.redsara.es/wsdl/GD_Dehu/v2/Gd-Dehu-Ws_se.wsdl";
+            //var request = (HttpWebRequest)WebRequest.Create(url);
+            //request.Method = "GET";
+            //request.ContentType = "application/json";
+            //request.Accept = "application/json";
+            //try
+            //{
+            //    using (WebResponse response = request.GetResponse())
+            //    {
+            //        using (Stream strReader = response.GetResponseStream())
+            //        {
+            //            if (strReader == null) return;
+            //            using (StreamReader objReader = new StreamReader(strReader))
+            //            {
+            //                var client = new RestClient(url);
+            //                RestRequest respuesta = new RestRequest();
+            //                var response2 = client.ExecuteAsync<PeticionLocaliza>(respuesta);
+
+            //                //var repositories = await JsonSerializer.DeserializeAsync<RespuestaLocaliza>(strReader);
+            //                //Console.WriteLine(repositories);
+
+            //                //string responseBody = objReader.ReadToEnd();
+            //                // Do something with responseBody
+            //                //Console.WriteLine(responseBody);
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (WebException ex)
+            //{
+            //    // Handle error
+            //}
         }
     }
 }
