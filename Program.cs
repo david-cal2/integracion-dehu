@@ -3,6 +3,8 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text.Json;
+using ServiceReference1;
+using System.ServiceModel;
 
 namespace ConsoleAppPruebaDehu
 {
@@ -86,6 +88,13 @@ namespace ConsoleAppPruebaDehu
 
         private static async void GetNotificacionesLocalizacion()
         {
+            LocalizaRequest requestLocaliza = new LocalizaRequest();
+            Localiza objLocaliza = new Localiza();
+            BasicHttpBinding binding = new BasicHttpBinding();
+            System.ServiceModel.EndpointAddress remoteAddress = new System.ServiceModel.EndpointAddress("http://localhost/");
+            DEHuWsPortTypeClient t = new DEHuWsPortTypeClient(binding, remoteAddress);
+            System.Threading.Tasks.Task<ServiceReference1.LocalizaResponse> respuestaLocaliza = t.LocalizaAsync(objLocaliza);
+
             var url = $"https://se-dehuws.redsara.es/wsdl/GD_Dehu/v2/Gd-Dehu-Ws_se.wsdl";
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
