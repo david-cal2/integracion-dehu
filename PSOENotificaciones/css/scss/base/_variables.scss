@@ -1,0 +1,156 @@
+@use 'sass:math';
+// Function variables
+$base-size: 16; // 1rem = 16px
+
+//Font family 400,600,700
+$ff: 'Roboto', sans-serif; //Default font family, Open Sans if Segoe is not installed
+$ff_verdana: Verdana, 'Roboto', sans-serif;
+
+$ff_lh: 1.4;
+
+$ficon: ''; //'psnn_icon_font', serif;
+
+// RUTAS
+$img: "../images/";
+$font: "../fonts/";
+
+//************COLORES************
+$w: #fff;
+$b: #000;
+$trans: rgba(0,0,0,0);
+
+//Colores principales
+$c_principal: #E20025;
+$c_principalOsc: #BD181B; // Principal oscuro
+$c_text: #6E6E6E; // texto
+$c_textOsc: #333; // Texto oscuro
+$c_border: #E2E2E2;
+
+$c_bg: #F3F3F3;
+$c_bgButton: $c_bg;
+
+//Colores de bandejas
+$c_bandejaText: #3F3F3F;
+
+$c_pendiente: #FF636E;
+$c_pendienteBg: #FFD6DD;
+
+$c_enAlerta: #F5A836;
+$c_enAlertaBg: #FEF2A7;
+
+$c_asignadas: #3E6B88;
+$c_asignadasBg: #9FE1F5;
+
+$c_comparecidas: #42883E;
+$c_comparecidasBg: #B8E8B3;
+
+$c_rechazadas: #828282;
+$c_rechazadasBg: #E6E6E6;
+
+$c_externas: #664493;
+$c_externasBg: #D8B9F6;
+
+
+//Colores de estado
+$c_alert: $c_principalOsc;
+$c_correct: #4E960F;
+$c_warning: #FFAA33;
+$c_alternative: #3D3A4B;
+
+
+//************VIEWPORT************
+
+// IMPORTANTE!: Resolución mínima: 1080px
+
+// cortes de media queries
+//                   max <--|--> min
+// sm   <- smartphone 575px | 576px tablet ->
+// md                 767px | 768px
+// lg       <- tablet 991px | 992px desktop ->
+// xl                1199px | 1200px
+// xxl               1399px | 1400px
+
+$sm: 576;
+$md: 768;
+$lg: 992;
+$xl: 1200;
+$xxl: 1400;
+
+// Container and col
+$outer-col-gutter: 32;
+$outer-container-gutter: 32;
+
+$col-gutter: 24;
+$container-gutter: 24;
+
+$input-col-gutter: 8;
+
+//config. de bloques blancos
+$psnn-box-bg: $w;
+$psnn-box-x: 24; // padding lateral
+$psnn-box-y: 31; // padding top y bottom
+
+
+//viewport config:
+$sm-max: #{$sm - 1}px;
+$sm-min: #{$sm}px;
+$md-max: #{$md - 1}px;
+$md-min: #{$md}px;
+$lg-max: #{$lg - 1}px;
+$lg-min: #{$lg}px;
+$xl-max: #{$xl - 1}px;
+$xl-min: #{$xl}px;
+$xxl-max: #{$xxl - 1}px;
+$xxl-min: #{$xxl}px;
+
+$sm-container: 540;
+$md-container: 768;//720;
+$lg-container: 960;
+$xl-container: 1140;
+$xxl-container: 1320;
+
+
+//Colores sueltos
+
+// - Form
+$form_c_label: $c_text;
+$form_c_check-label: $b;
+$form_c_text: $b;
+
+$form_c_border: #94B3C7;
+$form_c_borderFocus: #0084D6;
+
+$form_c_placeholder: #5C7A94;
+
+$form_c_DisabledBg: #f9f9f9;
+$form_c_DisabledBorder: #C6D6E0;
+$form_c_DisabledText: $c_text;
+
+// Shadows
+$sh_color: #C1DFE0;
+$sh_box: 0 rem(4) rem(24) rgba($sh_color, .66); // buscar la variable dentro de la carpeta bootstrap
+$sh_box-sm: 0 rem(2) rem(12) rgba($sh_color, .4); // buscar la variable dentro de la carpeta bootstrap
+$sh_box-lg: 0 rem(8) rem(24) rgba($sh_color, .7); // buscar la variable dentro de la carpeta bootstrap
+
+
+//Border-radius
+$br_box: 4px;
+$br_btn: 6px;
+
+
+// GENERAL LAYOUT GRID
+// Alturas fijas en el layout
+$gl_header-h: 67;
+
+$gl_latContract-w: 64;
+$gl_latExpand-w: 230;
+
+$lateral-padding: 60px;
+$logo-width: 295px;
+// $respLateralPadding: math.div($lateral-padding , 3);
+
+
+// z-index leves
+$zindx_lock: 10;
+$zindx_lateralMenu: 20;
+$zindx_modal: 30;

@@ -1,0 +1,46 @@
+@mixin breadcrumbText {
+    font-family: $ff_verdana;
+    font-size: rem(12);
+    line-height: em(16.32,12);
+    color: $c_text;
+}
+.breadcrumb {
+    // margin: rem(31) rem(24) rem(12);
+    ol {
+        padding-left: 0;
+        margin: 0;
+        list-style: none;
+        li {
+            display: inline;
+            a {
+                @include breadcrumbText;
+            }
+            &:not(:last-child) {
+                &:after {
+                    content: '';
+                    display: inline-block;
+                    width: rem(8);
+                    height: rem(15);
+                    // background: $trans url('#{$img}icon_arrow-right.svg') no-repeat left top;
+                    margin-left: rem(8);
+                    margin-right: rem(3);
+                }
+            }
+            &:first-child {
+                a {
+
+                }
+            }
+            &:last-child {
+                a {
+                    color: $b;
+                    cursor: default;
+                    pointer-events: none;
+                    &:hover {
+                        text-decoration: inherit;
+                    }
+                }
+            }
+        }
+    }
+}

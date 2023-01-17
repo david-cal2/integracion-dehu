@@ -1,0 +1,252 @@
+﻿@{
+    ViewBag.Title = "UsuarioNuevo";
+}
+
+<div class="gn-body">
+    <div class="gn-body-wrapper">
+        <div class="body-aside">
+            <div class="aside-wrapper">
+                <aside class="aside">
+                    <nav class="main-nav">
+                        <ul>
+                            <li>
+                                <a href="~/Administracion/Usuarios" class="active_menu">
+                                    <span class="nav_item nav_item__user"></span>
+                                    <span class="nav_text">Usuarios</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Grupos">
+                                    <span class="nav_item nav_item__groups"></span>
+                                    <span class="nav_text">Grupos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Perfiles">
+                                    <span class="nav_item nav_item__profile"></span>
+                                    <span class="nav_text">Perfiles</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Organismos">
+                                    <span class="nav_item nav_item__organisms"></span>
+                                    <span class="nav_text">Organismos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
+        <div class="body-main">
+            <div class="main-section">
+                <div class="container-fluid mt-3 px-2">
+                    <ul class="breadcrumbs">
+                        <li><a href="">Administración</a></li>
+                        <li><a href="~/Administracion/Usuarios">Usuarios</a></li>
+                        <li><a href="">Usuario nuevo</a></li>
+                    </ul>
+                    <div class="content_title d-flex justify-content-between">
+                        <h1 class="title_menu" id="tituloUsuario">Nuevo usuario</h1>
+                    </div>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="tab-detalle" data-bs-toggle="tab" data-bs-target="#tabDetalle" type="button" role="tab" aria-controls="home" aria-selected="true">Detalle</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-grupos" data-bs-toggle="tab" data-bs-target="#tabGrupos" type="button" role="tab" aria-controls="profile" aria-selected="false">Grupos</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active exceptiontab_content" id="tabDetalle" role="tabpanel" aria-labelledby="exception-tab">
+                            <div class="container" id="conDetalle">
+                                <div class="content_title">
+                                    <h7>Datos del usuario</h7>
+                                </div>
+                                <div class="table_container">
+                                    <div class="form-group">
+                                        <input type="hidden" id="identificador" value="-1">
+                                        <label for="txtNombre">Nombre</label>
+                                        <input type="text" class="form-control" id="txtNombre" maxlength="50" style="width: 400px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtApellidos">Apellidos</label>
+                                        <input type="text" class="form-control" id="txtApellidos" maxlength="50" style="width: 400px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtNIF">DNI</label>
+                                        <input type="text" class="form-control" id="txtNIF" maxlength="9"
+                                               placeholder="Ej: 12345678H" style="width: 400px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtEmail">Email</label>
+                                        <input type="text" class="form-control" id="txtEmail" maxlength="50" style="width: 400px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTelefono">Teléfono</label>
+                                        <input type="text" class="form-control" id="txtTelefono" maxlength="12" style="width: 400px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtLogin">Login de Usuario</label>
+                                        <input type="text" class="form-control" id="txtLogin" maxlength="10" autocomplete="off" style="width: 400px;">
+                                    </div>
+                                    @*<div class="form-group" id="pw">
+                                        <label for="txtPass">Password</label>
+                                        <input type="password" class="form-control" id="txtPass" maxlength="20" autocomplete="off" style="width: 400px;">
+                                    </div>
+                                    <div class="form-group" id="pw">
+                                        <label for="txtPass">Repite Password</label>
+                                        <input type="password" class="form-control" id="txtPass2" maxlength="20" autocomplete="off" style="width: 400px;">
+                                    </div>*@
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label for="selectPerfiles">Perfil</label>
+                                            <select class="selectpicker d-inline selectPerfiles" id="selectPerfiles">
+                                                <option aria-disabled="true" value="">
+                                                    Seleccionar
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="margin-top: 1%;">
+                                        <div class='switch-container d-flex'>
+                                            <input type='checkbox' class='checkbox' id='toggle-activo' checked />
+                                            <label for='toggle-activo'>Toggle</label>
+                                            <span>Activo</span>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="margin-top: 1%;">
+                                        <div class='switch-container d-flex'>
+                                            <input type='checkbox' class='checkbox' id='toggle-bloqueado' />
+                                            <label for='toggle-bloqueado'>Toggle</label>
+                                            <span>Bloqueado</span>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="margin-top: 5%;">
+                                        <button class="btn-primary me-4" id="btnAceptar">Aceptar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade exceptiontab_content usertab_content" id="tabGrupos" role="tabpanel" aria-labelledby="user-tab">
+                            <div class="container" id="conGrupos">
+                                <div class="content_title">
+                                    <h7>Grupos</h7>
+                                </div>
+                                <div class="table_container">
+                                    <div class="table_container__wrapper">
+                                        <table id="tableGrupos"
+                                               data-toggle="table"
+                                               class="fixed_headers"
+                                               data-escape="false"
+                                               data-pagination="true">
+                                            <thead>
+                                                <tr>
+                                                    <th data-field="ID" class="hidden">ID</th>
+                                                    <th data-field="Grupos.Nombre" data-sortable="true">Nombre</th>
+                                                    <th data-force-hide="true" data-field="Grupos.CodigoHtmlEliminar">Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div class="container">
+                                            <div class="table_container__wrapper">
+                                                <table id="tableTodosGrupos"
+                                                       data-toggle="table"
+                                                       class="fixed_headers"
+                                                       data-escape="false"
+                                                       data-pagination="true"
+                                                       data-search="true">
+                                                    <thead>
+                                                        <tr>
+                                                            <th data-field="ID" class="hidden">ID</th>
+                                                            @*<th data-force-hide="true" data-field="CodigoHtmlCheckBox"></th>*@
+                                                            <th data-field="Nombre" data-sortable="true">Nombre</th>
+                                                            <th data-force-hide="true" data-field="CodigoHtmlAsignar">Asignar</th>
+                                                            @*<th data-field="CodigoHtmlActivo" data-sortable="true">Activo</th>*@
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content validmodal__content">
+            <div class="modal-body">
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="advert-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>Información</h4>
+                            <p id="mensaje"></p>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalCamposIncorrectos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body" style="height: 350px;">
+                <div class="modal-content__container" style="height: 340px;">
+                    <div class="modal-content__wrapper">
+                        <span class="advert-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>Campos incorrectos</h4>
+                            <p id="litCamposIncorrectos"></p>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalRegistroError" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="advert-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>PSOE Notificaciones</h4>
+                            <p>Registre primero el usuario en la pestaña detalle.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="overlay">
+    <div class="cv-spinner">
+        <span class="spinner"></span>
+    </div>
+</div>
+
+<script>
+    var idPerfil = '@ViewBag.IdPerfil';
+    var idUsuarioEditado = 0;
+</script>
+<script src="~/js/shared/layout.min.js"></script>
+<script src="~/js/administracion/usuarioNuevo.js"></script>
+

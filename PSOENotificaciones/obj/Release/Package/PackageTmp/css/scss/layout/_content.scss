@@ -1,0 +1,44 @@
+// Bloqueo de pantalla:
+// Div de fondo que se muestra cuando salta una modal
+@mixin blockStyle {
+    background: rgba(255,255,255,0.7);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: $zindx_lock;
+}
+
+body {
+    &.block-content {
+        .contentBlock {
+            @include blockStyle;
+            animation: showBgAnimation .4s ease-in;
+        }
+    }
+    &.block-window { 
+        .winBlock {
+            @include blockStyle;
+            animation: showBgAnimation .4s ease-in;
+        }
+    }
+    &.block-content .body-main {
+        position: relative;
+    }
+}
+@keyframes showBgAnimation {
+    0% {opacity: 0;}
+    66% {opacity: 0.5;}
+    100% {opacity: 1;}
+}
+@keyframes hideBgAnimation {
+    0% {opacity: 1;}
+    33% {opacity: 0.5;}
+    100% {opacity: 0;}
+}
+
+
+.pageTitle {
+    @include psnn-h2;
+}

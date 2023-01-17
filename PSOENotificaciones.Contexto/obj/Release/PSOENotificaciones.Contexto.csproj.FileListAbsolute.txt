@@ -1,0 +1,12 @@
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\bin\Release\EntityFramework.dll
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\bin\Release\EntityFramework.SqlServer.dll
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\bin\Release\EntityFramework.xml
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\bin\Release\EntityFramework.SqlServer.xml
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\obj\Release\PSOENotificaciones.Contexto.csproj.CoreCompileInputs.cache
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\obj\Release\PSOENotificaciones.Contexto.csproj.CopyComplete
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\obj\Release\PSOENotificaciones.Contexto.csproj.AssemblyReference.cache
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\bin\Release\PSOENotificaciones.Contexto.dll.config
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\bin\Release\PSOENotificaciones.Contexto.dll
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\bin\Release\PSOENotificaciones.Contexto.pdb
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\obj\Release\PSOENotificaciones.Contexto.dll
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Contexto\obj\Release\PSOENotificaciones.Contexto.pdb

@@ -1,0 +1,2 @@
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Tareas\obj\Debug\PSOENotificaciones.Tareas.csproj.AssemblyReference.cache
+C:\d\workarea\proyectos\PSOE\PSOENotificaciones.Tareas\obj\Debug\PSOENotificaciones.Tareas.csproj.CoreCompileInputs.cache

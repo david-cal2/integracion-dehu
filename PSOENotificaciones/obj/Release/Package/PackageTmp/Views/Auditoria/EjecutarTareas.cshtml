@@ -1,0 +1,207 @@
+﻿@{
+    ViewBag.Title = "EjecutarTareas";
+}
+
+<div class="gn-body">
+    <div class="gn-body-wrapper">
+        <div class="body-aside">
+            <div class="aside-wrapper">
+                <aside class="aside">
+                    <nav class="main-nav menu-lateral">
+                        <ul>
+                            <li id="item-menu-notificaciones-estado-1">
+                                <a id="liSinAsignar" href="~/Auditoria/AuditoriaEnvio">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Auditoria Envío</span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-2">
+                                <a id="liEnAlerta" href="~/Auditoria/EjecutarTareas">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Ejecutar Tareas</span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-3">
+                                <a id="liAsignadas" href="~/Auditoria/ListadoExcepciones">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Listado Excepciones</span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-4">
+                                <a id="liComparecidas" href="~/Auditoria/LogTareaLocaliza">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Log Tarea Localiza</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
+        <div class="body-main">
+            <main class="body-main-wrapper">
+                <div class="main-section">
+                    <div class="container-fluid px-2">
+                        <div class="content_title">
+                            <h1>Tareas de ejecución manual</h1>
+                        </div>
+                        <div class="div-tarea">
+                            <h1 class="tituloTarea">TAREA 1 - Actualizar la cadena de grupos asignados a cada envío</h1>
+                            <div class="table_container__wrapper">
+                                <button id="btn-update" class="btn btn-secondary">EJECUTAR TAREA 1</button>
+                            </div>
+                        </div>
+                        <div class="div-tarea">
+                            <h1 class="tituloTarea">TAREA 2 - Actualizar la cadena de grupos asignados a cada organismo (ejecutar cada mes)</h1>
+                            <div class="table_container__wrapper">
+                                <button id="btn-update-2" class="btn btn-secondary">EJECUTAR TAREA 2</button>
+                            </div>
+                        </div>
+                        <div class="div-tarea">
+                            <h1 class="tituloTarea">TAREA 3 - Actualizar json de organimos (ejecutar cada mes)</h1>
+                            <div class="table_container__wrapper">
+                                <button id="btn-tarea-json" class="btn btn-secondary">EJECUTAR TAREA 3</button>
+                            </div>
+                        </div>
+                        <div class="div-tarea">
+                            <h1 class="tituloTarea">TAREA 4 - Probar Emails</h1>
+                            <div class="table_container__wrapper">
+                                <button id="btn-email" class="btn btn-secondary">EJECUTAR TAREA 4</button>
+                            </div>
+                        </div>
+                        <div class="div-tarea">
+                            <h1 class="tituloTarea">TAREA 5 - Ejecutar Tarea Alertas Caducadas</h1>
+                            <div class="table_container__wrapper">
+                                <button id="btn-tarea" class="btn btn-secondary">EJECUTAR TAREA 5</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tituloTarea {
+        font-size: 1rem;
+        color: blue;
+    }
+
+    .div-tarea {
+        margin: 15px;
+    }
+
+    .table_container__wrapper {
+        margin-top: 5px;
+    }
+</style>
+
+<script>
+    $(function () {
+        $('#btn-update').click(function () {
+            $.ajax({
+                async: false,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                url: '/Base/UpdateGrupos',
+                dataType: "json",
+                success: function (data) {
+                    if (data.hasOwnProperty('responseText')) {
+                        toastr.error("Error en la llamada al servicio 'UpdateGrupos'");
+                    }
+                    else {
+                        toastr.success("Grupos asignados correctamente");
+                    }
+                },
+                error: function (data) {
+                    toastr.error("Error en la llamada al servicio 'UpdateGrupos'");
+                }
+            });
+        })
+
+        $('#btn-update-2').click(function () {
+            $.ajax({
+                async: false,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                url: '/Base/UpdateGruposOrganismos',
+                dataType: "json",
+                success: function (data) {
+                    if (data.hasOwnProperty('responseText')) {
+                        toastr.error("Error en la llamada al servicio 'UpdateGruposOrganismos'");
+                    }
+                    else {
+                        toastr.success("Tarea realizada correctamente");
+                    }
+                },
+                error: function (data) {
+                    toastr.error("Error en la llamada al servicio 'UpdateGruposOrganismos'");
+                }
+            });
+        })
+
+        $('#btn-email').click(function () {
+            $.ajax({
+                async: false,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                url: '/Configuracion/EnviarCorreoTest',
+                dataType: "json",
+                success: function (data) {
+                    if (data.hasOwnProperty('responseText')) {
+                        toastr.error("Error en la llamada al servicio 'EnviarCorreoTest'");
+                    }
+                    else {
+                        toastr.success("Tarea realizada correctamente");
+                    }
+                },
+                error: function (data) {
+                    toastr.error("Error en la llamada al servicio 'EnviarCorreoTest'");
+                }
+            });
+        })
+
+        $('#btn-tarea').click(function () {
+            $.ajax({
+                async: false,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                url: '/Tareas/EjecutarTareaAlertasCaducadasManual',
+                dataType: "json",
+                success: function (data) {
+                    if (data.hasOwnProperty('responseText')) {
+                        toastr.error("Error en la llamada al servicio 'EjecutarTareaAlertasCaducadasManual'");
+                    }
+                    else {
+                        toastr.success("Tarea realizada correctamente");
+                    }
+                },
+                error: function (data) {
+                    toastr.error("Error en la llamada al servicio 'EjecutarTareaAlertasCaducadasManual'");
+                }
+            });
+        })
+
+        $('#btn-tarea-json').click(function () {
+            $.ajax({
+                async: false,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                url: '/Auditoria/ActualizaJsonOrganimos',
+                dataType: "json",
+                success: function (data) {
+                    if (data.hasOwnProperty('responseText')) {
+                        toastr.error("Error en la llamada al servicio 'ActualizaJsonOrganimos'");
+                    }
+                    else {
+                        toastr.success("Actualizado json OK");
+                    }
+                },
+                error: function (data) {
+                    toastr.error("Error en la llamada al servicio 'ActualizaJsonOrganimos'");
+                }
+            });
+        })
+    })
+</script>

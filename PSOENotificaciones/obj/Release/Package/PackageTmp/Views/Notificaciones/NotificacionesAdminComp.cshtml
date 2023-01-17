@@ -1,0 +1,282 @@
+﻿@{
+    ViewBag.Title = "NotificacionesAdminComp";
+}
+
+<div class="gn-body">
+    <div class="gn-body-wrapper">
+        <div class="body-aside">
+            <div class="aside-wrapper">
+                <aside class="aside">
+                    <nav class="main-nav menu-lateral no-visible">
+                        <ul>
+                            <li id="item-menu-notificaciones-estado-1">
+                                <a id="liSinAsignar" href="~/Notificaciones/NotificacionesEstado?idEstado=1">
+                                    <span class="nav_item nav_item__earring"></span>
+                                    <span class="nav_text">Sin asignar</span>
+                                    <span class="notification notification__earring" id="cantSinAsignar"></span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-2">
+                                <a id="liEnAlerta" href="~/Notificaciones/NotificacionesEstado?idEstado=2">
+                                    <span class="nav_item nav_item__alert"></span>
+                                    <span class="nav_text">En alerta</span>
+                                    <span class="notification notification__alert" id="cantEnAlerta"></span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-3">
+                                <a id="liAsignadas" href="~/Notificaciones/NotificacionesEstado?idEstado=3">
+                                    <span class="nav_item nav_item__assigned"></span>
+                                    <span class="nav_text">Asignadas</span>
+                                    <span class="notification notification__assigned" id="cantAsignadas"></span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-4">
+                                <a id="liComparecidas" href="~/Notificaciones/NotificacionesEstado?idEstado=4">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Comparecidas</span>
+                                    <span class="notification notification__appeared" id="cantComparecidas"></span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-5">
+                                <a id="liCaducadas" href="~/Notificaciones/NotificacionesEstado?idEstado=5">
+                                    <span class="nav_item nav_item__rejected"></span>
+                                    <span class="nav_text">Caducadas</span>
+                                    <span class="notification notification__rejected" id="cantCaducadas"></span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-7">
+                                <a id="liExternas" href="~/Notificaciones/NotificacionesEstado?idEstado=7">
+                                    <span class="nav_item nav_item__extern"></span>
+                                    <span class="nav_text">Externas</span>
+                                    <span class="notification notification__extern" id="cantExternas"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
+        <div class="body-main">
+            <div class="main-section">
+                <div class="container-fluid mt-1 px-2">
+                    <div class="content_title content_title__menu">
+                        <h1 class="title_menu">Notificaciones Comparecidas</h1>
+                    </div>
+                    <div class="table_container">
+                        <div class="accordion filters_container" id="toolbar">
+                            <div class="accordion-item">
+                                <div class="filters_container__wrapper row pt-2 mb-4 filtro-excel">
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button class="accordion-button d-inline" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                aria-expanded="false" aria-controls="collapseOne">
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="collapseOne" class="accordion-collapse collapse"
+                             aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body pb-2">
+                                <div class="row mb-3">
+                                    <div class="col-3">
+                                        <div>
+                                            <label for="input06A" class="form-label d-inline">Identificador</label>
+                                            <div>
+                                                <input type="text" class="inputIdentificador" id="inputIdentificador" style="width: 100%; margin-top: 7px; height: 29px;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div>
+                                            <label for="input06A" class="form-label d-inline">Administración Pública</label>
+                                            <div>
+                                                <select class="selectpicker d-inline selectAdministracionPublica" id="selectAdministracionPublica"
+                                                        data-live-search="true" onchange="setSelectAdministracionPublica()">
+                                                    <option aria-disabled="true" value="">
+                                                        Seleccionar
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div>
+                                            <label for="input06A" class="form-label d-inline">Organismo Raíz</label>
+                                            <div>
+                                                <select class="selectpicker d-inline selectOrganismosRaiz" id="selectOrganismosRaiz"
+                                                        data-live-search="true" onchange="setSelectOrganismosRaiz()" disabled="disabled">
+                                                    <option aria-disabled="true" value="">
+                                                        Seleccionar
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div>
+                                            <label for="input06A" class="form-label d-inline">Organismo Emisor</label>
+                                            <div>
+                                                <select class="selectpicker d-inline selectOrganismosEmisores" id="selectOrganismosEmisores"
+                                                        data-live-search="true" disabled="disabled">
+                                                    <option aria-disabled="true" value="">
+                                                        Seleccionar
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div>
+                                            <label for="input06A" class="form-label d-inline">Asunto</label>
+                                            <div>
+                                                <select class="selectpicker d-inline selectAsuntos" id="selectAsuntos" data-live-search="true">
+                                                    <option aria-disabled="true" value="">
+                                                        Seleccionar
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3" id="div-asignada">
+                                        <div>
+                                            <label for="input06A"
+                                                   class="form-label d-inline">Grupo</label>
+                                            <div>
+                                                <select class="selectpicker d-inline selectGrupos" id="selectGrupos" data-live-search="true">
+                                                    <option aria-disabled="true" value="">
+                                                        Seleccionar
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-icon date-icon">
+                                            <label for="input11"
+                                                   class="form-label d-inline">Desde</label>
+                                            <input type="text" class="form-control" id="fechaDesde"
+                                                   placeholder="dd/mm/aaaa" value="">
+                                            <i class="islc-icon icon-search icon-calendar-1"
+                                               aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-icon date-icon">
+                                            <label for="input10"
+                                                   class="form-label d-inline">Hasta</label>
+                                            <input type="text" class="form-control" id="fechaHasta"
+                                                   placeholder="dd/mm/aaaa" value="">
+                                            <i class="islc-icon icon-search icon-calendar-2"
+                                               aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col">
+                                        <button id="btn-buscar" class="btn-primary me-2">Buscar</button>
+                                        <button id="btn-limpiar" class="btn-secondary">Limpiar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table_container__wrapper" id="div-contenedor">
+                            <table id="table"
+                                   data-toggle="table"
+                                   data-toolbar="#toolbar"
+                                   data-escape="false"
+                                   data-pagination="true"
+                                   data-search="true"
+                                   data-show-export="true"
+                                   data-export-types="['excel']"
+                                   data-export-data-type="all"
+                                   data-show-jump-to="true"
+                                   class="fixed_headers"
+                                   data-url="../json/notificacionesAdminComp.json">
+                                <thead>
+                                    <tr>
+                                        <th data-field="CodigoHtmlEstado" data-force-hide="true"></th>
+                                        <th data-field="EstadoDescripcion" class="hidden">Estado</th>
+                                        <th data-field="Identificador" data-visible="true">Identificador</th>
+                                        <th data-field="CodigoHtmlAdministracionPublica" data-sortable="true">Administración Pública</th>
+                                        <th data-field="CodigoHtmlOrganismoEmisorRaiz" data-sortable="true">Organismo Raíz</th>
+                                        <th data-field="CodigoHtmlOrganismoEmisor" data-sortable="true">Organismo Emisor</th>
+                                        <th data-field="Concepto" data-sortable="true">Asunto</th>
+                                        <th data-field="CodigoHtmlGruposAsignadosCadena" data-sortable="true">Grupos</th>
+                                        <th data-field="FechaPuestaDisposicion" data-formatter="dateFormat" data-sortable="true" data-sorter="datesSorter">Puesta Disposición</th>
+                                        <th data-field="FechaCaducidad" data-formatter="dateFormat" data-sortable="true" data-sorter="datesSorter">Caducidad</th>
+                                        <th data-field="CodigoHtmlMenuNotificaciones" data-force-hide="true"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                        <div class="table_container__wrapper--vac display-none" id="div-contenedor-vacio">
+                            <img src="data:image/svg+xml;base64,PHN2ZyBpZD0iR3J1cG9fMzU1IiBkYXRhLW5hbWU9IkdydXBvIDM1NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTEyIiBoZWlnaHQ9IjE5NC42NjciIHZpZXdCb3g9IjAgMCAxMTIgMTk0LjY2NyI+DQogIDxwYXRoIGlkPSJUcmF6YWRvXzE3NDIiIGRhdGEtbmFtZT0iVHJhemFkbyAxNzQyIiBkPSJNMTA0LDUwLjY2N0g4YTgsOCwwLDAsMC04LDh2MTI4YTgsOCwwLDAsMCw4LDhoOTZhOCw4LDAsMCwwLDgtOHYtMTI4YTgsOCwwLDAsMC04LThNOCw1Nmg5NmEyLjY3LDIuNjcsMCwwLDEsMi42NjcsMi42NjZWNzcuOEE3Ljk2NCw3Ljk2NCwwLDAsMCwxMDQsNzcuMzM0SDhhNy45NjQsNy45NjQsMCwwLDAtMi42NjcuNDY1VjU4LjY2N0EyLjY3LDIuNjcsMCwwLDEsOCw1Nm05OC42NjcsMTA0QTIuNjcsMi42NywwLDAsMSwxMDQsMTYyLjY2N0g5MC4yNzhhMTMuMjYsMTMuMjYsMCwwLDAtMTEuOTI2LDcuMzcxbC0uOTExLDEuODIyYTIuNjUzLDIuNjUzLDAsMCwxLTIuMzg1LDEuNDc0SDM2Ljk0NGEyLjY1MywyLjY1MywwLDAsMS0yLjM4NS0xLjQ3NGwtLjkxMS0xLjgyMmExMy4yNiwxMy4yNiwwLDAsMC0xMS45MjYtNy4zNzFIOEEyLjY3LDIuNjcsMCwwLDEsNS4zMzMsMTYwVjg1LjMzNEEyLjY3MSwyLjY3MSwwLDAsMSw4LDgyLjY2N2g5NmEyLjY3MSwyLjY3MSwwLDAsMSwyLjY2NywyLjY2N1pNMTA0LDE4OS4zMzRIOGEyLjY3LDIuNjcsMCwwLDEtMi42NjctMi42NjdWMTY3LjUzNkE3Ljk2NCw3Ljk2NCwwLDAsMCw4LDE2OEgyMS43MjJhOCw4LDAsMCwxLDcuMTU2LDQuNDIybC45MTEsMS44MjJhOCw4LDAsMCwwLDcuMTU1LDQuNDIySDc1LjA1NmE4LDgsMCwwLDAsNy4xNTUtNC40MjJsLjkxMS0xLjgyMkE4LDgsMCwwLDEsOTAuMjc4LDE2OEgxMDRhNy45NjQsNy45NjQsMCwwLDAsMi42NjctLjQ2NXYxOS4xMzFBMi42NywyLjY3LDAsMCwxLDEwNCwxODkuMzM0IiBmaWxsPSIjZmZkNmRkIi8+DQogIDxwYXRoIGlkPSJUcmF6YWRvXzE3NDMiIGRhdGEtbmFtZT0iVHJhemFkbyAxNzQzIiBkPSJNNTYsMGgwYTIuNjY3LDIuNjY3LDAsMCwwLTIuNjY3LDIuNjY3djE2YTIuNjY3LDIuNjY3LDAsMCwwLDUuMzM0LDB2LTE2QTIuNjY3LDIuNjY3LDAsMCwwLDU2LDAiIGZpbGw9IiNmZmQ2ZGQiLz4NCiAgPHBhdGggaWQ9IlRyYXphZG9fMTc0NCIgZGF0YS1uYW1lPSJUcmF6YWRvIDE3NDQiIGQ9Ik0xMS43MTIsMTUuOTg5aDBhMi42NjYsMi42NjYsMCwwLDAtLjM0OCwzLjc1NWwxMC4yMiwxMi4zMTFhMi42NjcsMi42NjcsMCwwLDAsNC4xLTMuNDA3TDE1LjQ2NywxNi4zMzdhMi42NjYsMi42NjYsMCwwLDAtMy43NTUtLjM0OCIgZmlsbD0iI2ZmZDZkZCIvPg0KICA8cGF0aCBpZD0iVHJhemFkb18xNzQ1IiBkYXRhLW5hbWU9IlRyYXphZG8gMTc0NSIgZD0iTTEwMC4yODgsMTUuOTg5aDBhMi42NjYsMi42NjYsMCwwLDEsLjM0OCwzLjc1NUw5MC40MTYsMzIuMDU1YTIuNjY3LDIuNjY3LDAsMSwxLTQuMS0zLjQwN2wxMC4yMi0xMi4zMTFhMi42NjYsMi42NjYsMCwwLDEsMy43NTUtLjM0OCIgZmlsbD0iI2ZmZDZkZCIvPg0KPC9zdmc+DQo=" alt="Bandeja vacia">
+                            <p>La bandeja está vacía</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="overlay" style="display: inline;">
+    <div class="cv-spinner">
+        <span class="spinner"></span>
+    </div>
+</div>
+
+<script>
+    var idEstado = 4;
+    var idPerfil = 1;
+    var idTipoEnvios = 2;
+    var identificadorAsignar = '';
+
+    function abrirModalAsignarGrupo(identificador) {
+        $('#selectGruposModal').selectpicker('val', '');
+        $("#gruposAsignados").empty();
+
+        identificadorAsignar = identificador;
+
+        $.ajax({
+            async: false,
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            url: '/Base/GetGruposPorEnvio',
+            data: {
+                identificador: identificador,
+            },
+            dataType: "json",
+            success: function (data) {
+                data.forEach(value => {
+                    $("#gruposAsignados").append("<li id='" + value.ID + "'><strong class='eliminar-grupo' title='Quitar' onclick=\"javascript:eliminarGrupoAsignado('" + value.ID + "')\">X</strong>" + value.Nombre + "</li>");
+                });
+            },
+            error: function (data) {
+                toastr.error("Error en la llamada al servicio 'GetGruposPorEnvio'");
+            }
+        });
+
+        $('#asignarGrupoModal').modal({ backdrop: 'static', keyboard: false });
+        $('#asignarGrupoModal').modal('show');
+    }
+
+    function eliminarGrupoAsignado(idEliminar) {
+        var listElements = document.querySelectorAll("#gruposAsignados li");
+
+        for (var i = 0; (li = listElements[i]); i++) {
+            if (li.attributes[0].value == idEliminar)
+                li.parentNode.removeChild(li);
+        }
+    }
+</script>
+<script src="~/js/shared/layout.min.js"></script>
+<script src="~/js/notificaciones/notificacionesAdminComp.min.js"></script>
+

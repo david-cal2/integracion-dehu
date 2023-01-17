@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:ref="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:tns="https://administracionelectronica.gob.es/notifica/ws/lema/1.0/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:pac="http://administracion.gob.es/punto-unico-notificaciones/peticionAcceso" xmlns:rca="http://administracion.gob.es/punto-unico-notificaciones/respuestaConsultaAnexos" xmlns:pca="http://administracion.gob.es/punto-unico-notificaciones/consultaAnexos" xmlns:get="http://administracion.gob.es/punto-unico-notificaciones/localiza" xmlns:rlo="http://administracion.gob.es/punto-unico-notificaciones/respuestaLocaliza" xmlns:rpa="http://administracion.gob.es/punto-unico-notificaciones/respuestaPeticionAcceso" xmlns:rcap="http://administracion.gob.es/punto-unico-notificaciones/respuestaConsultaAcusePdf" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:pcap="http://administracion.gob.es/punto-unico-notificaciones/consultaAcusePdf" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" name="DEHuWs" targetNamespace="https://administracionelectronica.gob.es/notifica/ws/lema/1.0/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://administracion.gob.es/punto-unico-notificaciones/localiza">
+      <xsd:element name="Localiza" type="get:Localiza" />
+      <xsd:complexType name="Localiza">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="nifTitular" type="get:Nif" />
+          <xsd:element minOccurs="0" name="nifDestinatario" type="get:Nif" />
+          <xsd:element minOccurs="0" name="codigoDestino" type="xsd:string" />
+          <xsd:element minOccurs="0" name="fechaDesde" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="fechaHasta" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="tipoEnvio" type="get:TipoEnvio" />
+          <xsd:element minOccurs="0" name="opcionesLocaliza" type="get:Opciones" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="Nif">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="9" />
+          <xsd:minLength value="9" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="Opcion">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:string">
+            <xsd:attribute name="tipo" type="xsd:string" use="required" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="Opciones">
+        <xsd:sequence maxOccurs="100">
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="opcion" type="get:Opcion" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="TipoEnvio">
+        <xsd:annotation>
+          <xsd:documentation>
+                        Valor 1 para las Comunicaciones, Valor 2 para las Notificaciones
+                    </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:integer">
+          <xsd:enumeration value="1" />
+          <xsd:enumeration value="2" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://administracion.gob.es/punto-unico-notificaciones/peticionAcceso">
+      <xsd:element name="PeticionAcceso" type="pac:PeticionAcceso" />
+      <xsd:complexType name="PeticionAcceso">
+        <xsd:sequence>
+          <xsd:element name="identificador" type="pac:Identificador" />
+          <xsd:element name="codigoOrigen" type="xsd:integer" />
+          <xsd:element name="nifReceptor" type="pac:Nif" />
+          <xsd:element name="nombreReceptor" type="xsd:string" />
+          <xsd:element name="evento" type="pac:Evento" />
+          <xsd:element name="concepto" type="pac:Concepto" />
+          <xsd:element minOccurs="0" name="opcionesPeticionAcceso" type="pac:Opciones" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="Identificador">
+        <xsd:restriction base="xsd:string">
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Nif">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="9" />
+          <xsd:minLength value="9" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Evento">
+        <xsd:annotation>
+          <xsd:documentation>
+                        Valor 1 Aceptada
+                    </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="1" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Concepto">
+        <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1" />
+          <xsd:maxLength value="255" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="Opciones">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="opcion" type="pac:Opcion" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Opcion">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:string">
+            <xsd:attribute name="tipo" type="xsd:string" use="required" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://administracion.gob.es/punto-unico-notificaciones/respuestaLocaliza">
+      <xsd:element name="RespuestaLocaliza" type="rlo:RespuestaLocaliza" />
+      <xsd:complexType name="RespuestaLocaliza">
+        <xsd:sequence>
+          <xsd:element name="codigoRespuesta" type="xsd:string" />
+          <xsd:element name="descripcionRespuesta" type="xsd:string" />
+          <xsd:element name="nifPeticion">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="9" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="envios" type="rlo:Envios" />
+          <xsd:element name="hayMasResultados" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="opcionesRespuestaLocaliza" type="rlo:Opciones" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Envios">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="rlo:Envio" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Envio">
+        <xsd:sequence>
+          <xsd:element name="identificador" type="xsd:string" />
+          <xsd:element name="codigoOrigen" type="xsd:integer" />
+          <xsd:element name="concepto">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:whiteSpace value="preserve" />
+                <xsd:maxLength value="255" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="descripcion">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:whiteSpace value="preserve" />
+                <xsd:maxLength value="1000" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="organismoEmisor" type="rlo:Organismo" />
+          <xsd:element name="organismoEmisorRaiz" type="rlo:Organismo" />
+          <xsd:element name="fechaPuestaDisposicion" type="xsd:dateTime" />
+          <xsd:element name="tipoEnvio" type="rlo:TipoEnvio" />
+          <xsd:element name="vinculo" type="rlo:Vinculo" />
+          <xsd:element name="titular" type="rlo:Persona" />
+          <xsd:element minOccurs="0" name="metadatosPublicos">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:whiteSpace value="preserve" />
+                <xsd:maxLength value="255" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="opcionesEnvio" type="rlo:Opciones" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Organismo">
+        <xsd:sequence>
+          <xsd:element name="codigoOrganismo">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:length value="9" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="nombreOrganismo">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="255" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="nifOrganismo">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="9" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Opcion">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:string">
+            <xsd:attribute name="tipo" type="xsd:string" use="required" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="Opciones">
+        <xsd:sequence maxOccurs="100">
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="opcion" type="rlo:Opcion" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="TipoEnvio">
+        <xsd:annotation>
+          <xsd:documentation>
+                        Valor 1 para las Comunicaciones, Valor 2 para las Notificaciones
+                    </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:integer">
+          <xsd:enumeration value="1" />
+          <xsd:enumeration value="2" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Vinculo">
+        <xsd:annotation>
+          <xsd:documentation>
+                        Valores: 1 para titulado, 2 para destinatario, 3 Apoderado
+                    </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:integer">
+          <xsd:enumeration value="1" />
+          <xsd:enumeration value="2" />
+          <xsd:enumeration value="3" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Nif">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="9" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="CodigoOrganismo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value="([A-Z]{1}[A-Z0-9]{1}[0-9]{7})" />
+          <xsd:maxLength value="9" />
+          <xsd:minLength value="9" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="Persona">
+        <xsd:sequence>
+          <xsd:element name="nombreTitular" type="xsd:string" />
+          <xsd:element name="nifTitular" type="rlo:Nif" />
+          <xsd:element minOccurs="0" name="codigoDIR3" type="rlo:CodigoOrganismo" />
+          <xsd:element minOccurs="0" name="codigoDIRe" type="xsd:string" />
+          <xsd:element minOccurs="0" name="descripcionEntidad" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://administracion.gob.es/punto-unico-notificaciones/respuestaPeticionAcceso">
+      <xsd:import schemaLocation="swaref.xsd" namespace="http://ws-i.org/profiles/basic/1.1/xsd" />
+      <xsd:complexType name="Contenido">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:anyURI">
+            <xsd:attribute name="href" type="ref:swaRef" use="required" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:element name="RespuestaPeticionAcceso" type="rpa:RespuestaPeticionAcceso" />
+      <xsd:complexType name="RespuestaPeticionAcceso">
+        <xsd:sequence>
+          <xsd:element name="codigoRespuesta" type="rpa:Codigo" />
+          <xsd:element name="descripcionRespuesta" type="rpa:Descripcion" />
+          <xsd:element name="identificador" type="rpa:Identificador" />
+          <xsd:element name="codigoOrigen" type="xsd:integer" />
+          <xsd:element name="fechaEvento" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="documento" type="rpa:DetalleDocumento" />
+          <xsd:element minOccurs="0" name="anexos" type="rpa:Anexos" />
+          <xsd:element minOccurs="0" name="opcionesRespuestaPeticionAcceso" type="rpa:Opciones" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="Codigo">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="4" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Descripcion">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="100" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Identificador">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="50" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="DetalleDocumento">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="nombre" type="rpa:NombreDocumento" />
+          <xsd:element minOccurs="0" name="contenido" type="rpa:Contenido" />
+          <xsd:element minOccurs="0" name="hashDocumento" type="rpa:HashDocumento" />
+          <xsd:element minOccurs="0" name="mimeType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="metadatos" type="xsd:string" />
+          <xsd:element minOccurs="0" name="enlaceDocumento" type="xsd:string" />
+          <xsd:element minOccurs="0" name="referenciaDocumento" type="xsd:base64Binary" />
+          <xsd:element minOccurs="0" name="referenciaPdfAcuse" type="xsd:base64Binary" />
+          <xsd:element minOccurs="0" name="csvResguardo" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Anexos">
+        <xsd:choice>
+          <xsd:element name="anexosReferencia" type="rpa:AnexosReferencia" />
+          <xsd:element name="anexosUrl" type="rpa:AnexosUrl" />
+        </xsd:choice>
+      </xsd:complexType>
+      <xsd:complexType name="AnexosUrl">
+        <xsd:sequence>
+          <xsd:element maxOccurs="5" name="anexoUrl" type="rpa:AnexoUrl" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AnexosReferencia">
+        <xsd:sequence>
+          <xsd:element maxOccurs="5" name="anexoReferencia" type="rpa:AnexoReferencia" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AnexoUrl">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="rpa:DetalleAnexo">
+            <xsd:sequence>
+              <xsd:element name="enlaceDocumento" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="AnexoReferencia">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="rpa:DetalleAnexo">
+            <xsd:sequence>
+              <xsd:element name="referenciaDocumento" type="xsd:base64Binary" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="DetalleAnexo">
+        <xsd:sequence>
+          <xsd:element name="nombre" type="xsd:string" />
+          <xsd:element name="mimeType" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="NombreDocumento">
+        <xsd:restriction base="xsd:string">
+          <xsd:whiteSpace value="preserve" />
+          <xsd:maxLength value="100" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="HashDocumento">
+        <xsd:sequence>
+          <xsd:element name="hash" type="xsd:string" />
+          <xsd:element name="algoritmoHash" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SIA">
+        <xsd:sequence>
+          <xsd:choice>
+            <xsd:element name="codigoSIA" type="rpa:CodigoSIA" />
+            <xsd:element name="nombreSIA" type="rpa:NombreSIA" />
+          </xsd:choice>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="CodigoSIA">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="9" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="NombreSIA">
+        <xsd:restriction base="xsd:string">
+          <xsd:whiteSpace value="preserve" />
+          <xsd:maxLength value="100" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="Opciones">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="opcion" type="rpa:Opcion" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Opcion">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:string">
+            <xsd:attribute name="tipo" type="xsd:string" use="required" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://administracion.gob.es/punto-unico-notificaciones/consultaAnexos">
+      <xsd:element name="ConsultaAnexos" type="pca:ConsultaAnexos" />
+      <xsd:complexType name="ConsultaAnexos">
+        <xsd:sequence>
+          <xsd:element name="nifReceptor" type="pca:Nif" />
+          <xsd:element name="identificador" type="pca:Identificador" />
+          <xsd:element name="codigoOrigen" type="xsd:integer" />
+          <xsd:element name="referencia" type="xsd:base64Binary" />
+          <xsd:element minOccurs="0" name="opcionesConsultaAnexos" type="pca:Opciones" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="Nif">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="9" />
+          <xsd:minLength value="9" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Identificador">
+        <xsd:restriction base="xsd:string">
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="Opciones">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="opcion" type="pca:Opcion" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Opcion">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:string">
+            <xsd:attribute name="tipo" type="xsd:string" use="required" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://administracion.gob.es/punto-unico-notificaciones/respuestaConsultaAnexos">
+      <xsd:element name="RespuestaConsultaAnexos" type="rca:RespuestaConsultaAnexos" />
+      <xsd:complexType name="RespuestaConsultaAnexos">
+        <xsd:sequence>
+          <xsd:element name="codigoRespuesta" type="rca:Codigo" />
+          <xsd:element name="descripcionRespuesta" type="rca:Descripcion" />
+          <xsd:element minOccurs="0" name="documento" type="rca:DocumentoAnexo" />
+          <xsd:element minOccurs="0" name="opcionesRespuestaConsultaAnexo" type="rca:Opciones" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="Codigo">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="4" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Descripcion">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="100" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="DocumentoAnexo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="nombre" type="rca:NombreDocumento" />
+          <xsd:element minOccurs="0" name="contenido" type="rca:Contenido" />
+          <xsd:element minOccurs="0" name="mimeType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="metadatos" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="NombreDocumento">
+        <xsd:restriction base="xsd:string">
+          <xsd:whiteSpace value="preserve" />
+          <xsd:maxLength value="100" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="Contenido">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:anyURI">
+            <xsd:attribute name="href" type="ref:swaRef" use="required" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="Opciones">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="opcion" type="rca:Opcion" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Opcion">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:string">
+            <xsd:attribute name="tipo" type="xsd:string" use="required" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://administracion.gob.es/punto-unico-notificaciones/consultaAcusePdf">
+      <xsd:element name="ConsultaAcusePdf" type="pcap:ConsultaAcusePdf" />
+      <xsd:complexType name="ConsultaAcusePdf">
+        <xsd:sequence>
+          <xsd:element name="nifReceptor" type="pcap:Nif" />
+          <xsd:element name="identificador" type="pcap:Identificador" />
+          <xsd:element name="codigoOrigen" type="xsd:integer" />
+          <xsd:element name="identificadorAcusePdf" type="pcap:IdentificadorAcusePdf" />
+          <xsd:element minOccurs="0" name="opcionesConsultaAcusePdf" type="pcap:Opciones" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="Nif">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="9" />
+          <xsd:minLength value="9" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Identificador">
+        <xsd:restriction base="xsd:string">
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="IdentificadorAcusePdf">
+        <xsd:sequence>
+          <xsd:choice>
+            <xsd:element minOccurs="0" name="referencia" type="xsd:base64Binary" />
+            <xsd:element minOccurs="0" name="csvResguardo" type="xsd:string" />
+          </xsd:choice>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Opciones">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="opcion" type="pcap:Opcion" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Opcion">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:string">
+            <xsd:attribute name="tipo" type="xsd:string" use="required" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://administracion.gob.es/punto-unico-notificaciones/respuestaConsultaAcusePdf">
+      <xsd:element name="RespuestaConsultaAcusePdf" type="rcap:RespuestaConsultaAcusePdf" />
+      <xsd:complexType name="RespuestaConsultaAcusePdf">
+        <xsd:sequence>
+          <xsd:element name="codigoRespuesta" type="rcap:Codigo" />
+          <xsd:element name="descripcionRespuesta" type="rcap:Descripcion" />
+          <xsd:element minOccurs="0" name="acusePdf" type="rcap:AcusePdf" />
+          <xsd:element minOccurs="0" name="opcionesRespuestaConsultaAcusePdf" type="rcap:Opciones" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="Codigo">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="4" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Descripcion">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="100" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="AcusePdf">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="nombreAcuse" type="rcap:nombre" />
+          <xsd:element minOccurs="0" name="contenido" type="rcap:Contenido" />
+          <xsd:element minOccurs="0" name="mimeType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="metadatos" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="nombre">
+        <xsd:restriction base="xsd:string">
+          <xsd:whiteSpace value="preserve" />
+          <xsd:maxLength value="100" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="Contenido">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:anyURI">
+            <xsd:attribute name="href" type="ref:swaRef" use="required" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="Opciones">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="opcion" type="rcap:Opcion" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Opcion">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:string">
+            <xsd:attribute name="tipo" type="xsd:string" use="required" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="LocalizaRequest">
+    <wsdl:part name="Localiza" element="get:Localiza" />
+  </wsdl:message>
+  <wsdl:message name="LocalizaResponse">
+    <wsdl:part name="RespuestaLocaliza" element="rlo:RespuestaLocaliza" />
+  </wsdl:message>
+  <wsdl:message name="PeticionAccesoRequest">
+    <wsdl:part name="PeticionAcceso" element="pac:PeticionAcceso" />
+  </wsdl:message>
+  <wsdl:message name="PeticionAccesoResponse">
+    <wsdl:part name="RespuestaPeticionAcceso" element="rpa:RespuestaPeticionAcceso" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaAnexosRequest">
+    <wsdl:part name="ConsultaAnexos" element="pca:ConsultaAnexos" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaAnexosResponse">
+    <wsdl:part name="RespuestaConsultaAnexos" element="rca:RespuestaConsultaAnexos" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaAcusePdfRequest">
+    <wsdl:part name="ConsultaAcusePdf" element="pcap:ConsultaAcusePdf" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaAcusePdfResponse">
+    <wsdl:part name="RespuestaConsultaAcusePdf" element="rcap:RespuestaConsultaAcusePdf" />
+  </wsdl:message>
+  <wsdl:portType name="DEHuWsPortType">
+    <wsdl:operation name="Localiza">
+      <wsdl:input message="tns:LocalizaRequest" />
+      <wsdl:output message="tns:LocalizaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="PeticionAcceso">
+      <wsdl:input message="tns:PeticionAccesoRequest" />
+      <wsdl:output message="tns:PeticionAccesoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAnexos">
+      <wsdl:input message="tns:ConsultaAnexosRequest" />
+      <wsdl:output message="tns:ConsultaAnexosResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAcusePdf">
+      <wsdl:input message="tns:ConsultaAcusePdfRequest" />
+      <wsdl:output message="tns:ConsultaAcusePdfResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DEHuWsBinding" type="tns:DEHuWsPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Localiza">
+      <soap:operation soapAction="https://administracionelectronica.gob.es/notifica/ws/lema/Localiza" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="Localiza" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="RespuestaLocaliza" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PeticionAcceso">
+      <soap:operation soapAction="https://administracionelectronica.gob.es/notifica/ws/lema/PeticionAcceso" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="PeticionAcceso" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="RespuestaPeticionAcceso" />
+          </mime:part>
+        </mime:multipartRelated>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAnexos">
+      <soap:operation soapAction="https://administracionelectronica.gob.es/notifica/ws/lema/ConsultaAnexos" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="ConsultaAnexos" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="RespuestaConsultaAnexos" />
+          </mime:part>
+        </mime:multipartRelated>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAcusePdf">
+      <soap:operation soapAction="https://administracionelectronica.gob.es/notifica/ws/lema/ConsultaAcusePdf" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="ConsultaAcusePdf" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="RespuestaConsultaAcusePdf" />
+          </mime:part>
+        </mime:multipartRelated>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DEHuWsService">
+    <wsdl:port name="DEHuWsPort" binding="tns:DEHuWsBinding">
+      <soap:address location="https://se-dehuws.redsara.es/ws/v2/lema" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

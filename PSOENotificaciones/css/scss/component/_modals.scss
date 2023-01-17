@@ -1,0 +1,120 @@
+.modal_container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .btn-warning{
+        background-color: #ffac37;
+    }
+    .btn-valid{
+        background-color: #4E960F;
+        border-color: #4E960F;
+    }
+}
+
+.modal-content {
+    min-height: 230px;
+    max-width: 480px;
+
+    .modal-body {
+        padding: 0 30px;
+        height: 100%;
+
+        .btn-close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            opacity: 1;
+            background-color: transparent;
+        }
+
+        .modal-content__container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 230px;
+            justify-content: center;
+
+            .modal-content__wrapper {
+                display: flex;
+                align-items: flex-start;
+                gap: 20px;
+
+                .advert-icon::after {
+                    content: "";
+                    background-image: url("#{$img}exclamation.svg");
+                    background-size: 56px;
+                    width: 56px;
+                    height: 56px;
+                    display: inline-block;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
+                .modal-content__text{
+                    margin-top: 15px;
+                }
+            }
+        }
+        button.modal_button{
+            margin-top: 10px;
+            background-color: $c_principal;
+            color: $w;
+        }
+
+    }
+}
+
+.modal-backdrop {
+    background-color: #000000;
+    opacity: 0.4 !important;
+}
+
+.modal-dialog-centered{
+    justify-content: center;
+}
+
+.errormodal__content{
+    min-height: 200px;
+    max-width: 380px;
+    max-height: 202px !important;
+    .modal-content__container{
+        height: 200px !important;
+        .error-icon::after{
+            content: "";
+            background-image: url("#{$img}error-icon.svg");
+            background-size: 56px;
+            width: 56px;
+            height: 56px;
+            display: inline-block;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
+}
+
+.validmodal__content{
+    height: 336px;
+    .modal-content__container{
+        height: 334px !important;
+        .valid-icon::after{
+            content: "";
+            background-image: url("#{$img}valid-icon.svg");
+            background-size: 56px;
+            width: 56px;
+            height: 56px;
+            display: inline-block;
+            background-position: center;
+            background-repeat: no-repeat;  
+        }
+    } 
+}
+
+.btn_container{
+    margin-top: 10px;
+    display: flex;
+    gap: 25px;
+    button{
+        margin-top: 10px;
+    }
+}

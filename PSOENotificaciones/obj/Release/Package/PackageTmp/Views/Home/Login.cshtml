@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<div class="acces-container__wrapper mail-container">
+    <h2>Iniciar sesión</h2>
+    <p id="mensajeIncorrecto" class="warning-control no-visible">Usuario o clave incorrecto</p>
+    <div class="acces-container__form">
+        <label for="user" class="form-label">Usuario</label>
+        <input id="user" type="text" class="form-control" value="" maxlength="50">
+    </div>
+    <!--Si añadimos la clase "pass_hidden" en el siguiente div pone el icono del ojo tachado-->
+    <div class="acces-container__form mt-3 mb-3">
+        <label for="pass" class="form-label">Contraseña</label>
+        <input id="password" type="password" class="form-control" value="">
+        <div class="password_container pass-eye">
+        </div>
+    </div>
+    <a href="/Home/LoginRecupera"><span class="pass_advert">¿Has olvidado tu contraseña?</span></a>
+    <button id="btn-login" class="btn btn-primary mt-5">Identificarse</button>
+</div>
+
+<!-- Modal error-->
+<div class="modal fade" id="modalError" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content errormodal__content">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="error-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>Se ha producido un error</h4>
+                            <p>No se ha realizado la acción.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal usuario bloqueado-->
+<div class="modal fade" id="modalUsuarioBloqueado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="advert-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>Usuario bloqueado</h4>
+                            <p>Su usuario ha sido bloqueado al superar el número de intentos de acceso. Contacte con el administrador</p>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal usuario en espera-->
+<div class="modal fade" id="modalUsuarioEnEspera" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="advert-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>Usuario en espera</h4>
+                            <p>Debe esperar @ViewBag.TiempoEsperaLogin minutos desde el último intento de acceso para volver a iniciar sesión.</p>
+                            <p>Si el problema persiste póngase en contacto con el administrador del sistema.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal superado número de intentos-->
+<div class="modal fade" id="modalIntentosSuperados" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="advert-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>Login Incorrecto</h4>
+                            <p>Ha superado el número máximo de intentos y debe esperar @ViewBag.TiempoEsperaLogin minutos para volver a iniciar sesión.</p>
+                            <p>Si el problema persiste póngase en contacto con el administrador del sistema.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal login fallido-->
+<div class="modal fade" id="modalLoginFallido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="advert-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>Login incorrecto</h4>
+                            <p>Usuario incorrecto</p>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/home/login.js"></script>

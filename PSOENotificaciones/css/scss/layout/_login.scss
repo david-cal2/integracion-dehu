@@ -1,0 +1,383 @@
+.login-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+
+    .btn {
+        min-width: 100px;
+    }
+
+    .btn-disabled {
+        background-color: #BABAB9 !important;
+        border-color: #BABAB9 !important;
+        color: #eeeeee;
+
+        &:hover {
+            color: #eeeeee;
+        }
+    }
+
+    ul {
+        padding-left: 0;
+
+        li {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+            color: #000000;
+
+            &.passinfo_ico {
+                &::before {
+                    content: "";
+                    background-position: center 4px;
+                    background-repeat: no-repeat;
+                    background-size: 16px;
+                    width: 25px;
+                    height: 26px;
+                    display: inline-block;
+                    margin-bottom: 0px;
+                    margin-right: 5px;
+                }
+
+                &.question_ico {
+                    &::before {
+                        background-image: url("#{$img}ico-preg.svg");
+                    }
+                }
+
+                &.valid_ico {
+                    &::before {
+                        background-image: url("#{$img}ico-valid.svg");
+                    }
+                }
+
+                &.exclamation_ico {
+                    &::before {
+                        background-image: url("#{$img}ico-exclamation.svg");
+                    }
+                }
+            }
+        }
+    }
+
+    .branding-container {
+        padding: 50px;
+        width: 40%;
+        height: 100vh;
+        background-color: #E20025;
+    }
+
+    .acces-container {
+        height: 100vh;
+        width: 60%;
+        background-color: #E2E2E2;
+        display: flex;
+        align-items: center;
+
+        .warning-control {
+            color: #BD181B;
+            font-size: rem(12);
+            font-weight: 500;
+        }
+    }
+
+    .password_container {
+        position: relative;
+
+        &::after {
+            content: "";
+            background-image: url("#{$img}eye_view.svg");
+            background-size: 20px;
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: absolute;
+            top: 33px;
+            right: 10px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        &.pass_hidden::after {
+            background-image: url("#{$img}pass_hidden.svg");
+        }
+    }
+
+    .header-title {
+        position: relative;
+        margin-top: -20px;
+
+        h1 {
+            margin-left: 0px;
+            margin-top: 5px;
+            font-size: rem(22);
+
+            span {
+                font-size: rem(13);
+            }
+        }
+    }
+
+    .header-title:before {
+        content: "";
+        display: block;
+        width: 1px;
+        height: 55px;
+        background-color: #fff;
+        order: 1;
+        margin: 0;
+        position: absolute;
+        top: 3px;
+        left: -8px;
+    }
+}
+
+.pruebita {
+    display: flex;
+    height: 100%;
+    align-items: flex-end;
+}
+
+.acces-container__wrapper {
+    width: 307px;
+    min-height: 623px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0 auto;
+    background-color: $w;
+    padding: 30px 40px;
+    border-radius: 5px;
+
+    &.acces-container__wrapper__legal {
+        width: 575px;
+        padding: 20px 30px;
+        border-radius: 5px;
+
+        h1 {
+            font-size: rem(24);
+            font-weight: normal;
+            color: #6E6E6E;
+            margin: 10px 0;
+        }
+
+        .check-conditions {
+            label {
+                padding: 3px 5px 0px 5px;
+                margin-bottom: 0;
+                font-weight: 500;
+                color: #3F3F3F;
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+                border-radius: 3px;
+            }
+
+            .styled-checkbox:checked + label:after {
+                left: 10.5px;
+            }
+        }
+    }
+
+    .legal-container__wrapper {
+        padding: 20px 15px;
+        border: 1px solid #E2E2E2;
+        border-radius: 5px;
+
+        .legal-container {
+            height: 415px;
+            width: 100%;
+            overflow: auto;
+            box-sizing: border-box;
+            padding-right: 5px;
+        }
+
+        .legal-container::-webkit-scrollbar {
+            -webkit-appearance: none;
+        }
+
+        .legal-container::-webkit-scrollbar:vertical {
+            width: 9px;
+        }
+
+        .legal-container::-webkit-scrollbar-button:increment, .contenedor::-webkit-scrollbar-button {
+            display: none;
+        }
+
+        .legal-container::-webkit-scrollbar:horizontal {
+            height: 9px;
+        }
+
+        .legal-container::-webkit-scrollbar-thumb {
+            background-color: #9D9D9C;
+            border-radius: 20px;
+        }
+    }
+
+
+    .acces-container__form {
+        width: 100%;
+    }
+
+    h2 {
+        color: $c_principal;
+        line-height: 30px;
+        font-size: rem(24);
+        font-weight: 400;
+        margin-bottom: 10px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    input[type=password] {
+        padding-right: 40px;
+    }
+}
+
+
+.pass_advert {
+    font-size: rem(14);
+    font-weight: 500;
+    color: black;
+}
+
+
+.login-container {
+    .header-logo img {
+        height: 66px;
+    }
+}
+
+.invalid-feedback {
+    font-size: rem(10);
+    font-weight: 600;
+    position: relative;
+
+    &::after {
+        content: "!";
+        font-size: 11px;
+        border: 2px solid #BD181B;
+        border-radius: 50%;
+        padding: 0px 5.5px 0px 5.5px;
+        position: absolute;
+        top: -33px;
+        right: 10px;
+    }
+
+    &.pass-feedback {
+        &::after {
+            right: 40px;
+            top: -33px;
+        }
+    }
+}
+
+.email_container {
+    position: relative;
+
+    &::after {
+        content: "";
+        background-image: url("#{$img}advert_mail.svg");
+        background-size: 30px;
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 33px;
+        right: 10px;
+        display: inline-block;
+        cursor: pointer;
+    }
+}
+
+.color_b {
+    color: #000000;
+}
+
+.password_container {
+    position: relative;
+    width: 100%;
+}
+
+.pass_wrapper {
+    .password_container::after {
+        content: "";
+        background-image: url("#{$img}eye_view.svg");
+        background-size: 20px;
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 33px;
+        right: 10px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .incidence::before {
+        content: "";
+        background-image: url("#{$img}incidence.svg");
+        background-size: 20px;
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 33px;
+        right: 40px;
+        display: inline-block;
+        cursor: pointer;
+    }
+}
+
+
+
+.pass-advert_wrapper {
+    p {
+        margin-bottom: 20px;
+    }
+
+    ul {
+        padding: 0;
+
+        li {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 7px;
+
+            &::before {
+                content: "";
+                background-repeat: no-repeat;
+                background-position: center;
+                display: inline-block;
+                margin-right: 5px;
+                width: 20px;
+                height: 20px;
+            }
+
+            &.advert_pass {
+                &::before {
+                    background-image: url("#{$img}passing.svg");
+                }
+            }
+
+            &.check_pass {
+                &::before {
+                    background-image: url("#{$img}chekingg.svg");
+                }
+            }
+        }
+    }
+}

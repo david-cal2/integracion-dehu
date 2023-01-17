@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "ListadoExcepciones";
+}
+
+<div class="gn-body">
+    <div class="gn-body-wrapper">
+        <div class="body-aside">
+            <div class="aside-wrapper">
+                <aside class="aside">
+                    <nav class="main-nav menu-lateral">
+                        <ul>
+                            <li id="item-menu-notificaciones-estado-1">
+                                <a id="liSinAsignar" href="~/Auditoria/AuditoriaEnvio">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Auditoria Envío</span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-2">
+                                <a id="liEnAlerta" href="~/Auditoria/EjecutarTareas">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Ejecutar Tareas</span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-3">
+                                <a id="liAsignadas" href="~/Auditoria/ListadoExcepciones">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Listado Excepciones</span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-4">
+                                <a id="liComparecidas" href="~/Auditoria/LogTareaLocaliza">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Log Tarea Localiza</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
+        <div class="body-main">
+            <main class="body-main-wrapper">
+                <div class="main-section">
+                    <div class="container-fluid px-2">
+                        <div class="content_title">
+                            <h1>Listado de excepciones</h1>
+                        </div>
+                        <div class="table_container">
+                            <div class="table_container__wrapper">
+                                <table id="table"
+                                       data-toggle="table"
+                                       data-escape="false"
+                                       data-pagination="true"
+                                       data-search="true"
+                                       class="fixed_headers">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="Fecha" data-formatter="dateFormatAll" data-sortable="true">Fecha</th>
+                                            <th data-field="Excepcion">Mensaje</th>
+                                            <th data-field="Traza">Traza</th>
+                                            <th data-field="Usuarios.Nombre" data-sortable="true">Usuario</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<div id="overlay">
+    <div class="cv-spinner">
+        <span class="spinner"></span>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(document).ajaxSend(function () {
+            $("#overlay").fadeIn(300);
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                async: false,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                url: '/Auditoria/GetExcepciones',
+                dataType: "json",
+                success: function (data) {
+                    var $table = $('#table');
+                    $table.bootstrapTable('removeAll');
+                    $table.bootstrapTable('load', data);
+
+                    setTimeout(function () {
+                        $("#overlay").fadeOut(300);
+                    }, 500);
+                },
+                error: function (data) {
+                    toastr.error("Error en la llamada al servicio 'GetExcepciones'");
+                }
+            });
+        });
+    })
+</script>

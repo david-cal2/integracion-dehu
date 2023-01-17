@@ -1,0 +1,199 @@
+﻿@{
+    ViewBag.Title = "Parametros";
+}
+
+<div class="gn-body">
+    <div class="gn-body-wrapper">
+        <div class="body-aside">
+            <div class="aside-wrapper">
+                <aside class="aside">
+                    <nav class="main-nav">
+                        <ul>
+                            <li>
+                                <a href="/Configuracion/Parametros" class="active_menu">
+                                    <span class="nav_item nav_item__parameterizable"></span>
+                                    <span class="nav_text">Parametrizaciones</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Configuracion/Horario">
+                                    <span class="nav_item nav_item__consultation"></span>
+                                    <span class="nav_text">Ejecución manual</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Configuracion/Avisos">
+                                    <span class="nav_item nav_item__notifications"></span>
+                                    <span class="nav_text">Envío de emails</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
+        <div class="body-main">
+            <div class="main-section">
+                <div class="container-fluid mt-3 px-2">
+                    <ul class="breadcrumbs">
+                        <li><a href="">Configuración</a></li>
+                        <li><a href="">Parámetros</a></li>
+                    </ul>
+                    <div class="content_title title_detalle">
+                        <h1 class="title_menu">Parámetros</h1>
+                    </div>
+                    <div class="deltail-container">
+                        <div class="deltail-container__wrapper border-0 pb-0">
+                            <div class="row">
+                                <div class="col">
+                                    <dl>
+                                        <dt>Configuración de parámetros</dt>
+                                        <dd>
+                                            <div class="d-flex align-items-center my-3" style="margin-bottom: 0px !important;">
+                                                <label for="txtParam1" id="param1" class="form-label alert-label d-inline me-1 mb-0">Número máximo de intento de acceso al sistema</label>
+                                                <input type="text" class="form-control input-alert" placeholder="0" id="txtParam1" value="" maxlength="2">
+                                                <span style="margin-left: 5px;">(intentos)</span>
+                                            </div>
+                                            <div>
+                                                <span style="margin-left: 5px; color: blue; font-size: 11px;">*Superado el número indicado, el sistema bloqueará al usuario por el tiempo definido en el siguiente parámetro.</span>
+                                            </div>
+                                        </dd>
+                                        <dd>
+                                            <div class="d-flex align-items-center my-2" style="margin-bottom: 0px !important;">
+                                                <label for="txtParam2" id="param2" class="form-label alert-label d-inline me-1 mb-0">Tiempo de espera para nuevo login en el sistema.</label>
+                                                <input type="text" class="form-control input-alert" placeholder="0" id="txtParam2" value="" maxlength="2">
+                                                <span style="margin-left: 5px;">(minutos)</span>
+                                            </div>
+                                            <div>
+                                                <span style="margin-left: 5px; color: blue; font-size: 11px;">*Superado este tiempo, un usuario previamente bloqueado podrá volver a intentar acceder al sistema con el número de intentos definido en el parámetro anterior.</span>
+                                            </div>
+                                        </dd>
+                                        <dd>
+                                            <div class="d-flex align-items-center my-2" style="margin-bottom: 0px !important;">
+                                                <label for="txtParam4" id="param4" class="form-label alert-label d-inline me-1 mb-0">Número de días de caducidad en las notificaciones</label>
+                                                <input type="text" class="form-control input-alert" placeholder="0" id="txtParam4" value="" maxlength="2">
+                                                <span style="margin-left: 5px;">(días)</span>
+                                            </div>
+                                            <div>
+                                                <span style="margin-left: 5px; color: blue; font-size: 11px;">*Número de días en el que las notificaciones pasan al estado 'Caducadas' teniendo en cuenta la fecha de puesta a disposición.</span>
+                                            </div>
+                                        </dd>
+                                        <dd>
+                                            <div class="d-flex align-items-center my-3" style="margin-bottom: 0px !important;">
+                                                <label for="txtParam3" id="param3" class="form-label alert-label d-inline me-1 mb-0">Número de días (previo a la caducidad) para marcar en 'Alerta'</label>
+                                                <input type="text" class="form-control input-alert" placeholder="0" id="txtParam3" value="" maxlength="2">
+                                                <span style="margin-left: 5px;">(días)</span>
+                                            </div>
+                                            <div>
+                                                <span style="margin-left: 5px; color: blue; font-size: 11px;">*Indica el número de días que, con antelación a su caducidad, el sistema marca la notificación en estado de 'Alerta'.</span>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 35px;">
+                                <div class="col">
+                                    <dl>
+                                        <dt>Planificación de consulta automática al servicio DEHú</dt>
+                                        <dd>
+                                            <div class="d-flex align-items-end gap-3 mt-3 ">
+                                                <div class="dayweek-check">
+                                                    <input checked class="styled-checkbox" id="chkLunes"
+                                                           type="checkbox" value="value1">
+                                                    <label for="chkLunes">Lunes</label>
+                                                    <input type="time" class="form-control time-control mt-0" id="tHoraLunes"
+                                                           value="" placeholder="hh:mm" style="margin-top:2px !important">
+                                                </div>
+                                                <div class="dayweek-check">
+                                                    <input checked class="styled-checkbox" id="chkMartes"
+                                                           type="checkbox" value="value1">
+                                                    <label for="chkMartes">Martes</label>
+                                                    <input type="time" class="form-control time-control mt-0" id="tHoraMartes"
+                                                           value="" placeholder="hh:mm" style="margin-top:2px !important">
+                                                </div>
+                                                <div class="dayweek-check">
+                                                    <input checked class="styled-checkbox" id="chkMiercoles"
+                                                           type="checkbox" value="value1">
+                                                    <label for="chkMiercoles">Miércoles</label>
+                                                    <input type="time" class="form-control time-control mt-0" id="tHoraMiercoles"
+                                                           value="" placeholder="hh:mm" style="margin-top:2px !important">
+                                                </div>
+                                                <div class="dayweek-check">
+                                                    <input checked class="styled-checkbox" id="chkJueves"
+                                                           type="checkbox" value="value1">
+                                                    <label for="chkJueves">Jueves</label>
+                                                    <input type="time" class="form-control time-control mt-0" id="tHoraJueves"
+                                                           value="" placeholder="hh:mm" style="margin-top:2px !important">
+                                                </div>
+                                                <div class="dayweek-check">
+                                                    <input checked class="styled-checkbox" id="chkViernes"
+                                                           type="checkbox" value="value1">
+                                                    <label for="chkViernes">Viernes</label>
+                                                    <input type="time" class="form-control time-control mt-0" id="tHoraViernes"
+                                                           value="" placeholder="hh:mm" style="margin-top:2px !important">
+                                                </div>
+                                                <div class="dayweek-check">
+                                                    <input class="styled-checkbox" id="chkSabado"
+                                                           type="checkbox" value="value1">
+                                                    <label for="chkSabado">Sábado</label>
+                                                    <input type="time" class="form-control time-control mt-0" id="tHoraSabado"
+                                                           value="" placeholder="hh:mm" style="margin-top:2px !important">
+                                                </div>
+                                                <div class="dayweek-check">
+                                                    <input class="styled-checkbox" id="chkDomingo"
+                                                           type="checkbox" value="value1">
+                                                    <label for="chkDomingo">Domingo</label>
+                                                    <input type="time" class="form-control time-control mt-0" id="tHoraDomingo"
+                                                           value="" placeholder="hh:mm" style="margin-top:2px !important">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span style="margin-left: 5px; color: blue; font-size: 11px;">*Horario en el que el sistema lanzará la tarea programada de traer notificaciones y comunicaciones pendientes (configurable en rangos de 15 minutos).</span>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="deltail-container__wrapper pt-0">
+                            <div class="row mt-4 mb-2 d-flex justify-content-between align-items-center">
+                                <div class="col d-flex justify-content-start">
+                                    <a href="">
+                                        <button class="btn-primary me-4" id="btnAceptar">
+                                            Guardar
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalParametros" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content validmodal__content">
+            <div class="modal-body">
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="valid-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>Parámetros</h4>
+                            <p>Se han grabado correctamente.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var idPerfil = '@ViewBag.IdPerfil';
+</script>
+<script src="~/js/shared/layout.min.js"></script>
+<script src="~/js/configuracion/parametros.js"></script>

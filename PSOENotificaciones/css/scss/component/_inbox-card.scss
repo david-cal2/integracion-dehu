@@ -1,0 +1,65 @@
+.inbox {
+    width: 100%;
+    margin: 25px 0 15px 0;
+
+    a {
+        text-decoration: none;
+
+        .inbox_wrapper {
+            min-height: 76px;
+            border-radius: $border-radius;
+            padding: 18px;
+            background-repeat: no-repeat;
+            background-position: 93% center;
+            color: $c_bandejaText;
+
+            @media (min-width: 0px) and (max-width: 1285px) {
+                background-size: 22%;
+            }
+
+            &.inbox__earring {
+                background-color: $c_pendienteBg;
+                background-image: url("#{$img}inbox_earring.svg");
+            }
+
+            &.inbox__alert {
+                background-color: $c_enAlertaBg;
+                background-image: url("#{$img}inbox_alert.svg");
+            }
+
+            &.inbox__assigned {
+                background-color: $c_asignadasBg;
+                background-image: url("#{$img}inbox_assigned.svg");
+            }
+
+            &.inbox__appeared {
+                background-color: $c_comparecidasBg;
+                background-image: url("#{$img}inbox__appeared.svg");
+            }
+
+            &.inbox__rejected {
+                background-color: $c_rechazadasBg;
+                background-image: url("#{$img}inbox_rejected.svg");
+            }
+            &.inbox__extern {
+                background-color: $c_externasBg;
+                background-image: url("#{$img}inbox-extern.svg");
+            }
+
+            .inbox__number {
+                display: block;
+                font-size: rem(24);
+                font-weight: 500;
+            }
+
+            .inbox__status {
+                font-size: rem(18);
+                &::first-line{
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}
+
+

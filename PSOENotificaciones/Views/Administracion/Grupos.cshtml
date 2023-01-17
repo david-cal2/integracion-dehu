@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Grupos";
+}
+
+<div class="gn-body">
+    <div class="gn-body-wrapper">
+        <div class="body-aside">
+            <div class="aside-wrapper">
+                <aside class="aside">
+                    <nav class="main-nav">
+                        <ul>
+                            <li>
+                                <a href="~/Administracion/Usuarios">
+                                    <span class="nav_item nav_item__user"></span>
+                                    <span class="nav_text">Usuarios</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Grupos" class="active_menu">
+                                    <span class="nav_item nav_item__groups"></span>
+                                    <span class="nav_text">Grupos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Perfiles">
+                                    <span class="nav_item nav_item__profile"></span>
+                                    <span class="nav_text">Perfiles</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Organismos">
+                                    <span class="nav_item nav_item__organisms"></span>
+                                    <span class="nav_text">Organismos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
+        <div class="body-main">
+            <div class="main-section">
+                <div class="container-fluid mt-3 px-2">
+                    <ul class="breadcrumbs">
+                        <li><a href="">Administración</a></li>
+                        <li><a href="">Grupos</a></li>
+                    </ul>
+                    <div class="content_title d-flex justify-content-between">
+                        <h1 class="title_menu">Grupos</h1>
+                        <a href="~/Administracion/GrupoNuevo" style="text-decoration: none;">
+                            <button class="btn-primary high-users high-groups" id="btnAgregar">Alta grupo</button>
+                        </a>
+                    </div>
+                    <div class="table_container">
+                        <div class="table_container__wrapper table_container__user__wrapper table_container__profile__wrapper profile_table">
+                            <table id="table"
+                                   data-toggle="table"
+                                   data-search="true"
+                                   class="fixed_headers table_pendient"
+                                   data-escape="false"
+                                   data-pagination="true"
+                                   data-show-export="true"
+                                   data-export-types="['excel']"
+                                   data-export-data-type="all">
+                                <thead>
+                                    <tr>
+                                        <th data-field="ID" class="hidden" data-force-hide="true">ID</th>
+                                        <th data-field="Nombre" class="columna-1" data-sortable="true">Nombre</th>
+                                        <th data-field="Descripcion" class="columna-2" data-sortable="true">Descripción</th>
+                                        <th data-field="CodigoHtmlActivo" class="columna-3" data-force-hide="true">Activo</th>
+                                        <th data-field="Activo" class="hidden">Activo</th>
+                                        <th data-force-hide="true" data-field="CodigoHtmlMenu"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Información</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 id="mensaje" style="padding:5%">Mensaje</h5>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-cerrar" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var idPerfil = '@ViewBag.IdPerfil';
+</script>
+<script src="~/js/shared/layout.min.js"></script>
+<script src="~/js/administracion/grupos.js"></script>

@@ -1,0 +1,38 @@
+.body-aside {
+    background-color: $c_bg;
+    height: 100%;
+    position: relative;
+    @media (max-width: 1145px) { 
+        max-width: 64px !important;
+
+     }
+
+    .aside-wrapper {
+        min-width: #{$gl_latExpand-w}px;
+        min-height: 1px;
+        @media (max-width: 1145px) { 
+            max-width: 64px !important;
+    
+         }
+    }
+
+    .lateral-nav {
+        width: 32px;
+        height: 32px;
+        display: block;
+        border-radius: 0;
+        padding: 0;
+    }
+
+    &.fix-lateral {
+        .aside {
+            position: fixed;
+            top: 0;
+            min-width: #{$gl_latExpand-w}px;
+        }
+        .lateral-popup {
+            position: fixed;
+            top: 0;
+        }
+    }
+}

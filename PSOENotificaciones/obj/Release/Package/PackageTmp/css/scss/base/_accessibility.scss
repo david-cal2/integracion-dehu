@@ -1,0 +1,57 @@
+// Skip Link
+.skip-link {
+    left: 50%;
+    position: absolute;
+    transform: translateY(-100%);
+}
+.skip-link:focus {
+    transform: translateY(0%);
+}
+
+// Lector de pantalla
+.sReader {
+    position: absolute;
+    left: -9999999rem;
+    width: 1px;
+    height: 1px;
+    border: 0;
+    clip: rect(0 0 0 0);
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    color: $b;
+    background-color: $w;
+}
+
+// hidden for older browsers
+[hidden] { display: none !important; visibility: hidden !important; }
+
+// keyboard Focus
+@mixin focusVisible {
+    outline: 2px solid rgba($c_principal, .6);
+}
+*:focus-visible {
+    @include focusVisible;
+}
+
+button,
+select, 
+textarea, 
+input[type="text"], 
+input[type="password"], 
+input[type="datetime"], 
+input[type="datetime-local"], 
+input[type="date"], 
+input[type="month"], 
+input[type="time"], 
+input[type="week"], 
+input[type="number"], 
+input[type="email"], 
+input[type="url"], 
+input[type="search"], 
+input[type="tel"], 
+input[type="color"] {
+    &:focus {
+        @include focusVisible;
+    }
+}

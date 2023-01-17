@@ -1,0 +1,336 @@
+.body-aside {
+    .aside-wrapper {
+        margin-top: 20px;
+
+        .aside {
+            margin-top: 23px;
+
+            .main-nav {
+                ul {
+                    padding: 0;
+
+                    li {
+                        width: 97%;
+                        border-radius: 0 12px 12px 0;
+
+                        a {
+                            position: relative;
+                            text-decoration: none;
+                            padding: 10px 24px;
+                            padding-right: 15px;
+                            display: flex;
+                            align-items: center;
+                            width: 100%;
+                            height: 100%;
+
+                            @media (max-width: 1145px) {
+                                padding: 12px 7px !important;
+                                max-width: 58px;
+
+                            }
+
+                            &:hover,
+                            &.active_menu {
+                                background-color: #FFFFFF;
+                                border-radius: 0 12px 12px 0;
+
+                                .nav_item,
+                                .nav_text {
+                                    font-weight: bold;
+                                    color: black;
+                                    /*Menu Home ACTIVE*/
+                                    &.nav_item__earring {
+                                        &::before {
+                                            background-image: url("#{$img}menu_earring_hover.svg");
+                                        }
+                                    }
+                                    &.nav_item__alert {
+                                        &::before {
+                                            background-image: url("#{$img}menu_alert_hover.svg");
+                                        }
+                                    }
+                                    &.nav_item__assigned {
+                                        &::before {
+                                            background-image: url("#{$img}menu_assigned_hover.svg");
+                                        }
+                                    }
+                                    &.nav_item__appeared {
+                                        &::before {
+                                            background-image: url("#{$img}menu_appeared_hover.svg");
+                                        }
+                                    }
+                                    &.nav_item__rejected {
+                                        &::before {
+                                            background-image: url("#{$img}menu_rejected_hover.svg");
+
+                                        }
+                                    }
+                                    &.nav_item__extern {
+                                        &::before {
+                                            background-image: url("#{$img}menu_extern_hover.svg");
+
+                                        }
+                                    }
+
+                                    /*Alert Menu ACTIVE*/
+                                    &.nav_item__alerts {
+                                        &::before {
+                                            background-image: url("#{$img}alert-hover.svg");
+                                        }
+                                    }
+                                    &.nav_item__notifications {
+                                        &::before {
+                                            background-image: url("#{$img}notifications-hover.svg");
+
+                                        }
+                                    }
+                                    &.nav_item__consultation {
+                                        &::before {
+                                            background-image: url("#{$img}autoconsulta-hover.svg");
+                                        }
+                                    }
+                                    &.nav_item__parameterizable {
+                                        &::before {
+                                            background-image: url("#{$img}parametrizble-hover.svg");
+                                        }
+                                    }
+
+                                    /*User Menu ACTIVE*/
+                                    &.nav_item__user {
+                                        &::before {
+                                            background-image: url("#{$img}menu-users_hover.svg");
+
+                                        }
+                                    }
+                                    &.nav_item__groups {
+                                        &::before {
+                                            background-image: url("#{$img}menu-groups_hover.svg");
+
+                                        }
+                                    }
+                                    &.nav_item__profile {
+                                        &::before {
+                                            background-image: url("#{$img}menu-profile_hover.svg");
+                                        }
+                                    }
+                                    &.nav_item__organisms {
+                                        &::before {
+                                            background-image: url("#{$img}menu-organisms_hover.svg");
+                                        }
+                                    }
+
+                                    /*User Profile Menu ACTIVE*/
+                                    &.nav_item__mipfi {
+                                        &::before {
+                                            background-image: url("#{$img}menu-miperfil_hover.svg");
+                                            
+                                        }
+                                    }
+                                    &.nav_item__pass {
+                                        &::before {
+                                            background-image: url("#{$img}menu-llave_hover.svg");
+                                            background-position: center 8px;
+                                        }
+                                    }
+                                    &.nav_item__asigngroups {
+                                        &::before {
+                                            background-image: url("#{$img}menu-grupos_asginados_hover.svg");
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            .nav_text {
+                                display: flex;
+                                width: 100%;
+                                position: relative;
+                                color: #3F3F3F;
+                                font-size: rem(15);
+
+                                @media (max-width: 1145px) {
+                                    display: none !important;
+
+                                }
+                            }
+
+                            .nav_item {
+                                &::before {
+                                    content: "";
+                                    display: inline-block;
+                                    background-repeat: no-repeat;
+                                    background-position: center 4px;
+                                    width: 19px;
+                                    height: 29px;
+                                    margin-right: 16px;
+                                    vertical-align: top;
+
+                                    @media (max-width: 1145px) {
+                                        background-size: 24px;
+                                        width: 44px;
+                                        height: 28px;
+                                        vertical-align: baseline;
+
+                                    }
+                                }
+
+                                /*Menu Home*/
+                                &.nav_item__earring {
+                                    &::before {
+                                        background-image: url("#{$img}menu_earring.svg");
+                                    }
+                                }
+                                &.nav_item__alert {
+                                    &::before {
+                                        background-image: url("#{$img}menu_alert.svg");
+                                    }
+                                }
+                                &.nav_item__assigned {
+                                    &::before {
+                                        background-image: url("#{$img}menu_assigned.svg");
+                                    }
+                                }
+                                &.nav_item__appeared {
+                                    &::before {
+                                        background-image: url("#{$img}menu_appeared.svg");
+                                    }
+                                }
+                                &.nav_item__rejected {
+                                    &::before {
+                                        background-image: url("#{$img}menu_rejected.svg");
+                                    }
+                                }
+                                &.nav_item__extern {
+                                    &::before {
+                                        background-image: url("#{$img}menu_extern.svg");
+                                    }
+                                }
+
+                                /*Alert Menu*/
+                                &.nav_item__alerts {
+                                    &::before {
+                                        background-image: url("#{$img}alert.svg");
+
+                                    }
+                                }
+                                &.nav_item__notifications {
+                                    &::before {
+                                        background-image: url("#{$img}notifications.svg");
+
+                                    }
+                                }
+                                &.nav_item__consultation {
+                                    &::before {
+                                        background-image: url("#{$img}autoconsulta.svg");
+                                    }
+                                }
+                                &.nav_item__parameterizable {
+                                    &::before {
+                                        background-image: url("#{$img}parametrizable.svg");
+                                    }
+                                }
+
+                                /*User Menu*/
+                                &.nav_item__user {
+                                    &::before {
+                                        background-image: url("#{$img}menu-users.svg");
+
+                                    }
+                                }
+                                &.nav_item__groups {
+                                    &::before {
+                                        background-image: url("#{$img}menu-groups.svg");
+
+                                    }
+                                }
+                                &.nav_item__profile {
+                                    &::before {
+                                        background-image: url("#{$img}menu-profile.svg");
+                                    }
+                                }
+                                &.nav_item__organisms {
+                                    &::before {
+                                        background-image: url("#{$img}menu-organisms.svg");
+                                    }
+                                }
+
+                                 /*User Profile Menu*/
+                                 &.nav_item__mipfi {
+                                    &::before {
+                                        background-image: url("#{$img}menu-miperfil.svg");
+
+                                    }
+                                }
+                                &.nav_item__pass {
+                                    &::before {
+                                        background-image: url("#{$img}menu-llave.svg");
+                                        background-position: center 8px;
+                                    }
+                                }
+                                &.nav_item__asigngroups {
+                                    &::before {
+                                        background-image: url("#{$img}menu-grupos_asginados.svg");
+                                    }
+                                }
+                            }
+
+                            .notification {
+                                position: relative;
+                                padding: 2px 5px;
+                                border-radius: 5px;
+                                color: #3F3F3F;
+                                font-size: rem(13);
+                                font-weight: 500;
+
+                                @media (max-width: 1145px) {
+                                    position: absolute;
+                                    bottom: 10px;
+                                    right: 5px;
+                                    border-radius: 70%;
+                                    font-size: 0.625rem;
+                                    font-weight: bold;
+                                    padding: 0px 3px;
+                                    line-height: 19px;
+                                }
+
+                                &.notification__earring {
+                                    background-color: $c_pendienteBg;
+                                }
+
+                                &.notification__alert {
+                                    background-color: $c_enAlertaBg;
+                                }
+
+                                &.notification__assigned {
+                                    background-color: $c_asignadasBg;
+                                }
+
+                                &.notification__appeared {
+                                    background-color: $c_comparecidasBg;
+
+                                    @media (max-width: 1145px) {
+                                        position: absolute;
+                                        bottom: 9px;
+                                        right: 1px;
+                                        border-radius: 38%;
+                                    }
+                                }
+
+                                &.notification__rejected {
+                                    background-color: $c_rechazadasBg;
+                                }
+
+                                &.notification__extern {
+                                    background-color: $c_externasBg;
+                                }
+
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

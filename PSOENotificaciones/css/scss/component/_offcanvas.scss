@@ -1,0 +1,111 @@
+.offcanvas {
+    transition: all 0.2s linear;
+    border: 0;
+    
+    &:focus-visible{
+        outline: none;
+    }
+
+    .offcanvas-header {
+        justify-content: flex-end;
+
+        .btn-close {
+            opacity: 1;
+            background-size: 25px;
+            position: absolute;
+            top: 25px;
+            right: 25px;
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
+
+    .offcanvas-body {
+        padding: 20px;
+        padding-top: 30px;
+        padding-right: 0;
+
+        .navbar-nav {
+            .nav-item {
+                border-bottom: 1px solid #E6E6E6;
+                a {
+                    font-size: rem(14);
+                    font-weight: 500;
+                    padding: 15px;
+                    display: flex;
+                    height: 100%;
+                    align-items: center;
+                    border-radius: 8px 0 0 8px;
+                    text-transform: uppercase;
+                    &:hover {
+                        background-color: $c_principal;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+
+    .dropdown-toggle {
+        &::after{
+            transition: transform .2s ease-in-out;
+            margin-left: 0.8em;
+            background-image: url("#{$img}down.svg");
+            background-size: 23px;
+            width: 20px;
+            height: 22px;
+            background-repeat: no-repeat;
+            border: none;
+        }
+        &.show{
+            background-color: $c_principal;
+            color: white;
+            &::after{
+                background-image: url("#{$img}down_white.svg");
+                transition: transform .2s ease-in-out;
+                transform: rotate(-180deg);
+            }
+        }
+        &:hover{
+            &::after{
+                background-image: url("#{$img}down_white.svg");
+            }
+        }
+        &.active{
+            background-color: $c_principal;
+            color: white;
+            &::after{
+                background-image: url("#{$img}down_white.svg");
+            }
+        }
+        
+        
+
+    }
+
+    .dropdown-menu {
+        position: relative !important;
+        width: 100%;
+        transform: none !important;
+        border: none;
+        background-color: #F3F3F3;
+        border-radius: 8px;
+        li{
+            a{
+                padding: 12px 25px !important;
+                &:hover{
+                    background-color: #828282 !important;
+                }
+                &.dropdown-item{
+                    &.activee{
+                        color: #e20025;
+                        font-weight: bold;
+                    }
+                }
+                
+            }
+        }
+    }
+}

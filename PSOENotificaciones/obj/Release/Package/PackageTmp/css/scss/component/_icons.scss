@@ -1,0 +1,202 @@
+.input-icon {
+    position: relative;
+
+    .form-control {
+        margin-top: 7px;
+    }
+
+    .islc-icon {
+        display: inline-block;
+        cursor: pointer;
+
+        &::after {
+            content: "";
+            display: inline-block;
+            background-image: url("#{$img}search.svg");
+            background-repeat: no-repeat;
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            top: 7px;
+            right: 10px;
+        }
+    }
+
+    &.date-icon {
+        .islc-icon {
+            &::after {
+                top: 37px;
+                background-image: url("#{$img}calendar.svg");
+            }
+        }
+
+    }
+}
+
+.filters_container__wrapper {
+    .input-icon {
+        .form-control {
+            margin-top: 0;
+        }
+    }
+}
+
+
+.status_icon {
+    display: inline-block;
+    margin-top: 3px;
+    width: 20px;
+    height: 20px;
+
+    &.status_icon__earring {
+        background-image: url("#{$img}status_earring.svg");
+    }
+
+    &.status_icon__appeared {
+        background-image: url("#{$img}status_appeared.svg");
+    }
+
+    &.status_icon__alert {
+        background-image: url("#{$img}status_alert.svg");
+    }
+
+    &.status_icon__assigned {
+        background-image: url("#{$img}status_assigned.svg");
+    }
+
+    &.status_icon__rejected {
+        background-image: url("#{$img}status_rejected.svg");
+    }
+    &.status_icon__extern {
+        background-image: url("#{$img}status_extern.svg");
+    }
+}
+
+.statusmail_icon {
+    display: inline-block;
+    margin-top: 3px;
+    width: 100%;
+    height: 20px;
+    background-image: url("#{$img}mail_status.svg");
+    background-position: 27% center;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+.action_button {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+
+    .action_button__icon {
+        display: inline-block;
+        width: 23px;
+        height: 20px;
+        background-position: 27% center;
+        background-repeat: no-repeat;
+        text-align: center;
+        margin-right: 15px;
+        cursor: pointer;
+
+        &.action_button__icon__mail {
+            background-image: url("#{$img}action_mail.svg");
+        }
+
+        &.action_button__icon__mail_close {
+            background-image: url("#{$img}mail_status.svg");
+        }
+
+        &.action_button__icon__assigned {
+            background-image: url("#{$img}action_assigned.svg");
+        }
+
+        &.action_button__icon__assigned-people {
+            background-image: url("#{$img}action_assigned_people.svg");
+        }
+
+        &.action_button__icon__edit {
+            background-image: url("#{$img}pencil.svg");
+        }
+
+        &.action_button__icon__delete {
+            background-image: url("#{$img}trash.svg");
+        }
+
+        &.action_button__icon__admin-unlock {
+            background-image: url("#{$img}unlock_admin.svg");
+        }
+
+        &.action_button__icon__admin-plus {
+            background-image: url("#{$img}plus-admin.svg");
+        }
+
+        &.action_button__icon__admin-lock {
+            background-image: url("#{$img}lock_admin.svg");
+        }
+
+        &.action_button__icon__candado-unlock {
+            background-image: url("#{$img}unlockcandado_admin.svg");
+        }
+
+        &.action_button__icon__admin-candado-lock__red {
+            background-image: url("#{$img}lockcandado_red_admin.svg");
+        }
+
+        &.action_button__icon__admin-candado-lock__gray {
+            background-image: url("#{$img}lockcandado_gray_admin.svg");
+        }
+
+        &.action_button__icon__person_delete {
+            background-image: url("#{$img}delete-profile.svg");
+        }
+
+        &.action_button__icon__green-square {
+            background-image: url("#{$img}green-square.svg");
+        }
+
+        &.action_button__icon__yellow-square {
+            background-image: url("#{$img}yellow-square.svg");
+        }
+
+        &.action_button__icon__red-square {
+            background-image: url("#{$img}red-square.svg");
+        }
+    }
+}
+
+.context_menu {
+    display: inline-block;
+    margin-left: 10px;
+    width: 15px;
+    height: 20px;
+    background-image: url("#{$img}menu_contextual.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+
+    &.close {
+        background-image: url("#{$img}close.svg");
+        position: absolute;
+        top: -9px;
+        right: 0;
+    }
+
+    &.context_disabled {
+        opacity: 0.3;
+    }
+
+}
+
+.arrow {
+    display: inline-block;
+    margin-left: 10px;
+    width: 17px;
+    height: 11px;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+
+    &.arrow-right {
+        background-image: url("#{$img}arrow-right.svg");
+    }
+}

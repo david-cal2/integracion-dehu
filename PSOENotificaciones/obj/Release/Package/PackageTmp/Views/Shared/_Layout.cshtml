@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <title>Gestor de notificaciones</title>
+    <meta name=description content="PSOE">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+
+    <link rel="stylesheet" href="~/css/style.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap-table.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/page-jump-to/bootstrap-table-page-jump-to.min.css">
+
+    @*<script src="~/js/jquery.js" type="text/javascript"></script>*@
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="~/js/bootstrap-table.min.js" type="text/javascript"></script>
+    <script src="~/js/bootstrap-export.min.js" type="text/javascript"></script>
+    @*<script src="~/js/bootstrap-table-export.min.js" type="text/javascript"></script>*@
+    @*<script src="~/js/excel_options.min.js" type="text/javascript"></script>*@
+    <script src="~/js/bootstrap-table-page-jump-to.min.js"></script>
+    <script src="~/js/moment.min.js"></script>
+
+    <script src="~/Scripts/util.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/dropdown.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+</head>
+<body>
+
+    <div class="modal fade" id="asignarGrupoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title"><strong>Asignar grupo</strong></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="height: 500px;">
+                    <select class="selectpicker d-inline selectGruposModal" id="selectGruposModal" data-live-search="true" style="margin-top: 5px;">
+                        <option aria-disabled="true" value="">
+                            Seleccionar
+                        </option>
+                    </select>
+                    <div style="margin-top: 15px;">
+                        <button id="btn-agregar-grupo" class="btn btn-primary">Agregar</button>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <ul id="gruposAsignados">
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-guardar-grupos" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="general-layout">
+        <div class="general-layout-wrapper">
+            <header class="gn-header">
+                <div class="gn-header-wrapper">
+                    <a href="~/Notificaciones/Notificaciones">
+                        <div class="header-logo">
+                            <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJhIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDQuMDA0IiBoZWlnaHQ9IjUxIiB2aWV3Qm94PSIwIDAgMTA0LjAwNCA1MSI+PHBhdGggaWQ9ImIiIGQ9Ik0yNC41NzMsMzQuNzM2YzAsMi43MTgtMi4wMDgsNC4yNzQtNC43LDQuMjc0LTEuOTIyLC4wNTUtMy43MzEtLjkwOC00Ljc1Ny0yLjUzNGgwbDIuMzYtMi4xMzdjLjk3MiwxLjE2MywxLjc1OSwxLjc2NCwyLjQ2MywxLjc2NCwuNjAyLC4wNzksMS4xNTUtLjM0NSwxLjIzNC0uOTQ4di0uMDAyYy4wMS0uMDcsLjAxMi0uMTQxLC4wMDctLjIxMiwwLS44MTEtLjIyNy0xLjMtMS44NjEtMi4wMzMtMi44NzgtMS4yNjUtMy45MzYtMi4zNjUtMy45MzYtNC42NDctLjAzNi0yLjMwOCwxLjgwNi00LjIwNyw0LjExNC00LjI0MywuMTI2LDAsLjI1MywwLC4zNzksLjAxMiwxLjgxOS0uMDg5LDMuNTUsLjc4Nyw0LjU1NSwyLjMwNWwtMi40LDIuMTU5Yy0uOTk0LTEuMTg2LTEuMzQ2LTEuNTU1LTIuMjU4LTEuNTU1LS41NTItLjAxOS0xLjAxNSwuNDEzLTEuMDM0LC45NjV2LjA3MWMwLC43NjcsLjM3MiwxLjIsMS44NDMsMS44NDUsMi45MTksMS4yODgsMy45OTUsMi40OSwzLjk5NSw0LjkxNmgtLjAwNFptLTEwLjMwNy01Ljk1NGMwLDMuNDQzLTEuOTY2LDQuNzI5LTQuNzQyLDQuNzI5aC0xLjI0MXY1LjI3aC0zLjR2LTE0LjUyMWg0Ljg5YzIuNTg5LDAsNC40OTMsMS4xNjIsNC40OTMsNC41MjNoMFptLTMuNDM5LC4wODJjMC0xLjI4Ni0uMzk0LTEuNzgzLTEuMzY1LTEuNzgzaC0xLjE3OXYzLjYwOWgxLjExN2MuOTk0LDAsMS40MjctLjUxOCwxLjQyNy0xLjgyNlpNNTAuOSwyLjc0NlY0OC4yNTRjLS4wMDMsMS41MTUtMS4yMjksMi43NDItMi43NDQsMi43NDZIMi43NGMtMS41MTMtLjAwNi0yLjczOC0xLjIzMy0yLjc0LTIuNzQ2VjIuNzQ3Qy4wMDIsMS4yMzQsMS4yMjcsLjAwNiwyLjc0LDBINDguMTU1YzEuNTE1LC4wMDMsMi43NDMsMS4yMzEsMi43NDUsMi43NDZabS0xLjE3NCwwYzAtLjg2Ni0uNy0xLjU2OC0xLjU2Ni0xLjU3SDIuNzRjLS44NjYsLjAwMi0xLjU2NiwuNzA0LTEuNTY1LDEuNTdWNDguMjU0YzAsLjg2NSwuNywxLjU2NywxLjU2NSwxLjU2OUg0OC4xNTVjLjg2NS0uMDAyLDEuNTY2LS43MDQsMS41NjYtMS41NjlWMi43NDdoLjAwNVptNTQuMjc0LDBWNDguMjU0Yy0uMDAzLDEuNTE1LTEuMjMsMi43NDMtMi43NDUsMi43NDZINTUuODQxYy0xLjUxMy0uMDA2LTIuNzM4LTEuMjMzLTIuNzQtMi43NDZWMi43NDdjLjAwMi0xLjUxMywxLjIyNy0yLjc0MSwyLjc0LTIuNzQ3aDQ1LjQxNWMxLjUxMywuMDA2LDIuNzM3LDEuMjMzLDIuNzQsMi43NDZoLjAwNFptLTEuMTc0LDBjMC0uODY2LS43LTEuNTY4LTEuNTY2LTEuNTdINTUuODQxYy0uODY2LC4wMDItMS41NjYsLjcwNC0xLjU2NSwxLjU3VjQ4LjI1NGMwLC44NjUsLjcsMS41NjcsMS41NjUsMS41NjloNDUuNDE1Yy44NjUtLjAwMiwxLjU2Ni0uNzA0LDEuNTY2LTEuNTY5VjIuNzQ3aC4wMDRaTTM2LjAxNywzMS41YzAsNS4xMjQtMS45NDYsNy41MDgtNS4yMTgsNy41MDgtMy4yNDgsMC01LjE1LTIuMzQzLTUuMTUtNy40NjdoMGMwLTUuMTIyLDEuOTQ1LTcuNTA5LDUuMTk1LTcuNTA5czUuMTczLDIuMzY4LDUuMTczLDcuNDY4Wm0tMy41NiwuMDQyYzAtMy41MDUtLjU2MS00LjUyMy0xLjYzNi00LjUyMy0xLjA5NSwwLTEuNjE2LC45NzQtMS42MTYsNC40OGgwYzAsMy41MDksLjU1OSw0LjUyMiwxLjYzNSw0LjUyMnMxLjYxNi0uOTc0LDEuNjE2LTQuNDc5aDBabTguNywxLjExOWgzLjN2LTIuOTQ3aC0zLjMwMXYtMi40ODhoNS4wNTF2LTIuOTY3aC04LjQ5MnYxNC41MjJoOC42MzN2LTIuOTdoLTUuMTk1di0zLjE1MmwuMDA0LC4wMDJaTTg3LjQ2NiwxNC4xYy0uMDQ3LC42NzEtLjEzMSwxLjMzOS0uMjUyLDIsLjIwOSwuNTc2LC4yODcsMS4xOTEsLjIyOCwxLjgtLjA4NywxLjE3NC0uNjUyLDIuMjYtMS41NjMsMy4wMDVoMS40NDl2Mi45MzZjLjAwOSwuNDY4LS4yMzYsLjkwMy0uNjM5LDEuMTQsLjQ3MiwuNDUxLC43NDIsMS4wNzMsLjc0OCwxLjcyNiwuMDU2LC43MS0uMTk2LDEuNDA5LS42OTIsMS45MiwuNDY5LC40NDksLjczLDEuMDczLC43MTksMS43MjItLjAzMiwuNjY0LS4yOTEsMS4yOTgtLjczNCwxLjc5NCwuNTI2LC41MTEsLjc4NywxLjIzNiwuNzA4LDEuOTY1LS4wMDksLjkyOS0uNTk2LDEuNzU0LTEuNDcsMi4wNjcsLjI1OSwuNDM4LC4zOTMsLjkzOSwuMzg4LDEuNDQ4LC4wNjksMS4yNS0uODc3LDIuMzI0LTIuMTI2LDIuNDEzaC05LjMzNGMtMS4yNzYsLjE4OC0yLjQ2Mi0uNjk0LTIuNjUtMS45Ny0uMDMtLjIwNS0uMDMzLS40MTQtLjAwOC0uNjJoLTYuMDQydi0xMC41ODRoNS45OTJ2LS45MjNjLjA0MS0uNDA2LC4yOTUtLjc2LC42NjctLjkyOC0uMzM2LS4xNy0uNTY1LS40OTctLjYxLS44NzF2LTMuMTZoLjk5M2MtMS4xMDMtMS4yMTUtMS41MTYtMi45MDYtMS4xLTQuNDkzbC4zMzEtMS4yMTZjLS44MjYtMS42MzgtLjE2OC0zLjYzNiwxLjQ3LTQuNDYyLC42NTgtLjMzMiwxLjQwNy0uNDM1LDIuMTMtLjI5NWwuNDc5LC4xNDZjMS41MDMtMS41NTMsMy45MTItMS43ODQsNS42ODMtLjU0NWwuMzg0LC40YzEuOS0uNDQ3LDUuMDE5LC4xLDQuODU3LDMuNTg3bC0uMDA2LS4wMDJabS01LjMzOC0xLjNjMS40ODMtLjE5NSwyLjk3MywuMzA3LDQuMDM3LDEuMzU5aDBjLjE5Ni0xLjExNi0uNTQ5LTIuMTgtMS42NjYtMi4zNzZoLS4wMDNjLS4wNjUtLjAxMi0uMTMtLjAyMS0uMi0uMDI2LS44NzktLjIxOS0xLjc5LC4yMTktMi4xNjgsMS4wNDNabS0uMzc5LDEuMjExaDBjLjA0NSwuNS0uMDk4LC45OTktLjQsMS40LS40LC4zNjMtLjkzMiwuNTQ0LTEuNDcsLjUsLjUxNSwxLjA3MywxLjY1LDEuNzA1LDIuODMzLDEuNTc4LC40MDUtMS4yNDcsLjAyNi0yLjYxNS0uOTYzLTMuNDc2aDB2LS4wMDJabS0uMjQ1LDQuNzI1aDBjLTIuMTA1LS41NDItMy41NjYtMi40NTMtMy41MzYtNC42MjYtMS4wNTcsLjUtMS43NDEsMi44ODUtLjI3LDQuMzcsMS4wMDYsMS4wNjksMi42NjcsMS4xOCwzLjgwNiwuMjU0di4wMDJabS0yLjQ3NywyLjczN3YyLjg3OGgxLjI4N3YtMy43bC0xLjI4NywuODIyWm0uODcyLTYuODU0Yy40MDUtLjAyMSwuNzE3LS4zNjcsLjY5Ni0uNzcyLS4wMi0uMzkxLS4zNDQtLjY5OC0uNzM2LS42OTctLjQxOCwuMDEzLS43NDcsLjM2LS43MzYsLjc3OCwuMDI0LC40MDUsLjM3MiwuNzE0LC43NzcsLjY5MWgwWm0tMy40MzQtLjhjMS44NTMtMi4wNDMsMy4zNzctMS45ODIsNC40NC0xLjgyMywuMTU1LS4zNjUsLjQwOS0uNjc5LC43MzMtLjkwOC0xLjUxOS0xLjAyNS0zLjU4Mi0uNjIzLTQuNjA2LC44OTYtLjM2NiwuNTQyLS41NjMsMS4xODEtLjU2NywxLjgzNVptLS44NDYsMi4zNTVjLS42NjMtMS40MTMtLjYyMi0zLjA1NSwuMTA5LTQuNDMzLTEuMjI1LC4wMDMtMi4yMTUsLjk5OS0yLjIxMiwyLjIyNCwuMDAzLDEuMTc4LC45MjcsMi4xNDgsMi4xMDMsMi4yMDlabTIuNjg1LDQuMzI2aDBjLTEuMzQ3LS4zMTEtMi4zNjMtMS40Mi0yLjU1NS0yLjc4OS0uODY4LS4wNDEtMS42OTUtLjM3OC0yLjM0NS0uOTU1LS40NzEsMi42MDMsMS4xMTEsNS40NTgsNC45LDMuNzQ0Wm0tMS40NTksMS42OTJoLTMuMjczdjEuNjQ4YzAsLjI0MSwuMjE5LC41MDksLjY4LC41MDloMy40NzZ2LTEuNDczYzAtLjMzNS0uNDU3LS42ODEtLjg4My0uNjgxdi0uMDAzWm0xLDE1LjE0Yy4wNC0uNjQzLC4zNzgtMS4yMywuOTE1LTEuNTg2LS41NTYtLjQ0My0uODgtMS4xMTQtLjg4Mi0xLjgyNSwuMDAyLS40NTYsLjA3Ni0uOTA4LC4yMTgtMS4zNDFsLjAxMS0uMDA1aC0uMDA5di4wMDhjLS4yMzcsLjEzNi0uNTA1LC4yMDktLjc3OCwuMjE0LS42MzgsLjAyMS0zLjQwNywwLTMuNDA3LDAtLjA5NC0uMDEzLS4xODctLjAzMi0uMjc4LS4wNTctLjgyMy0uMTMyLTEuNDM5LS44MjUtMS40NzMtMS42NTh2LTIuOTI5aC00LjY5NHY4LjAwN2g1Ljg1MnYxLjFjMCwxLjM2MSwuODcyLDEuNTQ3LDEuOTM3LDEuNTQ3aDMuMTcxYy0uMzc3LS4zOTctLjU4Ny0uOTI0LS41ODctMS40NzJsLjAwNC0uMDAzWm0yLjE2NC01Ljg2M2gxLjM4N3YtNC40NDljMC0uNjI2LS4wMzItMS4zNzItMS4wODUtMS4zNzJoLTUuOGMtLjYzMSwwLTEuMDI3LC4yNi0xLjAyNywuODI1djQuMjM1Yy0uMDAxLC40MjEsLjM0LC43NjQsLjc2MSwuNzY1aDIuNzg5Yy40LC4wMjEsLjc0NS0uMjgsLjc3Ny0uNjc5di0yLjgxN2gxLjM3OXYzLjAwNWMwLC4zMDcsLjUyNiwuNDksLjgxNSwuNDlsLjAwNC0uMDAzWm01LjAxLDYuMDE1YzAtLjU3OC0uMy0xLjE1Ny0uODM4LTEuMTU3aC0zLjk1M2MtLjU0NiwwLS45LC42NTgtLjksMS4xNTd2LjE1NmMwLC40NTUsLjM1NSwxLjE1NiwuOSwxLjE1NmgzLjk0OWMuNDU1LDAsLjgzOC0uNTc3LC44MzgtMS4xNTZsLjAwNC0uMTU2Wm0xLjAyMi0zLjY4NGMwLS41NzgtLjMtMS4wNDMtLjg0LTEuMDQzaC00Ljk3M2MtLjU0LDAtLjg0NywuNTgxLS44NDcsMS4wNDN2LjE1NmMwLC40NjgsLjMxLDEuMDg3LC44NDcsMS4wODdoNC45NzNjLjU0MSwwLC44NC0uNTA4LC44NC0xLjA4N3YtLjE1NlptLjAxMS0zLjUyN2MwLS41NzgtLjMtMS4wMzMtLjg0LTEuMDMzaC0yLjUyMnYyLjIzMWgyLjUyMmMuNTQxLDAsLjg0LS40NjEsLjg0LTEuMDQydi0uMTU2Wm0wLTMuNTQzYzAtLjU3OC0uMy0xLjA0My0uODQtMS4wNDNoLTIuNTIydjIuMjY0aDIuNTIyYy41NDEsMCwuODQtLjQ4NCwuODQtMS4wNjV2LS4xNTZabS0zLjUyNC00LjUzYy0uNDI4LDAtLjg4NCwuMzQ2LS44ODQsLjY4MXYxLjQ3M2gzLjY2OGMuMzM3LC4wNCwuNjQzLS4yMDEsLjY4My0uNTM4di0xLjYxNmgtMy40NjdabTMuNzI0LTQuNDI3Yy4wODctMS43MDMtMS4wNy0zLjIyLTIuNzM2LTMuNTg1aDBjMS4zOTMsMi44NywuMTU5LDUuMjM5LTIuMjg0LDYuMTU0LDEuNjA1LC45MjgsMy42NTgsLjM4LDQuNTg3LTEuMjI1LC4yMzgtLjQxMiwuMzg2LS44NywuNDM0LTEuMzQ0aC0uMDAxWiIgZmlsbD0iI2ZmZiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+" alt="PSOE Gestión de notificaciones">
+                        </div>
+                    </a>
+                    <div class="header-title container-fluid ps-0">
+                        <h1><span>Gestor de</span>notificaciones<span class="sReader">a</span></h1>
+                    </div>
+                    <div class="header-user">
+                        <div class="container-fluid user-wrapper">
+                            <div class="nav">
+                                <ul>
+                                    <a href="~/Notificaciones/Notificaciones">
+                                    <li id="item-notificaciones">notificaciones</li>
+                                    </a>
+                                    <a href="~/Comunicaciones/Comunicaciones">
+                                    <li id="item-comunicaciones">comunicaciones</li>
+                                    </a>
+                                </ul>
+                            </div>
+                            <div class="ayuda" id="btn-ayuda">
+                                <a>
+                                    <span class="ayuda__icon">
+                                        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxzdmcgdmlld0JveD0iMCAwIDMwMi45NjcgMzAyLjk2NyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzAyLjk2NyAzMDIuOTY3OyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgPGc+DQogICAgPGc+DQogICAgICA8Zz4NCiAgICAgICAgPHBhdGggc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiIGQ9Ik0xNTEuNDgzLDMwMi45NjdDNjcuOTU2LDMwMi45NjcsMCwyMzUuMDE3LDAsMTUxLjQ4M1M2Ny45NTYsMCwxNTEuNDgzLDAgczE1MS40ODMsNjcuOTU2LDE1MS40ODMsMTUxLjQ4M1MyMzUuMDE3LDMwMi45NjcsMTUxLjQ4MywzMDIuOTY3eiBNMTUxLjQ4MywyNC40MTZjLTcwLjA2NiwwLTEyNy4wNjcsNTcuMDAxLTEyNy4wNjcsMTI3LjA2NyBzNTcuMDAxLDEyNy4wNjcsMTI3LjA2NywxMjcuMDY3czEyNy4wNjctNTcuMDAxLDEyNy4wNjctMTI3LjA2N1MyMjEuNTU1LDI0LjQxNiwxNTEuNDgzLDI0LjQxNnoiLz4NCiAgICAgIDwvZz4NCiAgICAgIDxnPg0KICAgICAgICA8Zz4NCiAgICAgICAgICA8cGF0aCBzdHlsZT0iZmlsbDogcmdiKDI1NSwgMjU1LCAyNTUpOyIgZD0iTTExNi41ODYsMTE4LjEyYzEuNzk1LTQuNjA3LDQuMjk3LTguNTg4LDcuNTExLTExLjk2MWMzLjIyNS0zLjM4OSw3LjExNC02LjAxNiwxMS42NjctNy44OTggYzQuNTQ3LTEuOTA0LDkuNjMzLTIuODQ1LDE1LjI2Mi0yLjg0NWM3LjI2MSwwLDEzLjMyLDAuOTk1LDE4LjE4MywyLjk5N2M0Ljg1NywxLjk5Niw4Ljc2OCw0LjQ4MiwxMS43MzgsNy40NDEgYzIuOTY0LDIuOTcsNS4wOTEsNi4xNjgsNi4zNjksOS41ODRjMS4yNzMsMy40MzIsMS45MTUsNi42MzYsMS45MTUsOS41OTVjMCw0LjkwMS0wLjY0Miw4Ljk0Ny0xLjkxNSwxMi4xMTggYy0xLjI3OCwzLjE3MS0yLjg2Niw1Ljg4LTQuNzU5LDguMTMxYy0xLjg5OCwyLjI1Mi0zLjk4Nyw0LjE3Mi02LjI5Myw1Ljc1NWMtMi4yOTUsMS41ODgtNC40NzEsMy4xNzEtNi41MTYsNC43NTkgYy0yLjA0NSwxLjU4My0zLjg2MiwzLjM5NC01LjQ0NSw1LjQzOWMtMS41ODgsMi4wNC0yLjU4OSw0LjYwMS0yLjk5MSw3LjY2NHY1LjgzMUgxNDAuNnYtNi45MDggYzAuMzA1LTQuMzk1LDEuMTUzLTguMDcyLDIuNTI5LTExLjAzNmMxLjM4Mi0yLjk2NCwyLjk5MS01LjQ5OSw0LjgzLTcuNTk4YzEuODQ0LTIuMDg5LDMuNzg2LTMuOTExLDUuODM2LTUuNDQ1IGMyLjA0LTEuNTM5LDMuOTI3LTMuMDczLDUuNjczLTQuNTkxYzEuNzMtMS41NDUsMy4xNDQtMy4yMjUsNC4yMjEtNS4wNjljMS4wNzEtMS44MzMsMS41NTYtNC4xNSwxLjQ1Mi02LjkwOCBjMC00LjcwNS0xLjE0OC04LjE4LTMuNDU0LTEwLjQyN2MtMi4yOTUtMi4yNTctNS40OTMtMy4zNzgtOS41ODktMy4zNzhjLTIuNzU4LDAtNS4xMzQsMC41MzMtNy4xMzEsMS42MDUgcy0zLjYyOCwyLjUxMy00LjkxMSw0LjMwMmMtMS4yNzgsMS43OTUtMi4yMjUsMy44OTQtMi44MzQsNi4yODhjLTAuNjE1LDIuNDE1LTAuOTE5LDQuOTgyLTAuOTE5LDcuNzU2aC0yMi41NSBDMTEzLjg1LDEyNy43ODUsMTE0Ljc5MSwxMjIuNzMyLDExNi41ODYsMTE4LjEyeiBNMTYyLjUzNiwxODMuOTM4djIzLjYxNmgtMjQuMDl2LTIzLjYxNkgxNjIuNTM2eiIvPg0KICAgICAgICA8L2c+DQogICAgICA8L2c+DQogICAgPC9nPg0KICA8L2c+DQo8L3N2Zz4=" alt="help" width="40">
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="ham">
+                                <span class="ham_icon"><img src="~/images/hamburger.svg" alt="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></span>
+                                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                                    <div class="offcanvas-header">
+                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                    </div>
+                                    <div class="offcanvas-body">
+                                        <ul class="navbar-nav justify-content-end flex-grow-1">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" aria-current="page" href="~/Notificaciones/Notificaciones">Inicio</a>
+                                            </li>
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Notificaciones
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown1">
+                                                    <li id="item-menu-notificaciones-1"><a class="dropdown-item" href="~/Notificaciones/NotificacionesEstado?idEstado=1">Sin asignar</a></li>
+                                                    <li id="item-menu-notificaciones-2"><a class="dropdown-item" href="~/Notificaciones/NotificacionesEstado?idEstado=2">En alerta</a></li>
+                                                    <li id="item-menu-notificaciones-3"><a class="dropdown-item" href="~/Notificaciones/NotificacionesEstado?idEstado=3">Asignadas</a></li>
+                                                    <li id="item-menu-notificaciones-4"><a class="dropdown-item" href="~/Notificaciones/NotificacionesEstado?idEstado=4">Comparecidas</a></li>
+                                                    <li id="item-menu-notificaciones-5"><a class="dropdown-item" href="~/Notificaciones/NotificacionesEstado?idEstado=5">Caducadas</a></li>
+                                                    <li id="item-menu-notificaciones-7"><a class="dropdown-item" href="~/Notificaciones/NotificacionesEstado?idEstado=7">Externas</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Comunicaciones
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown2">
+                                                    <li id="item-menu-comunicaciones-1"><a class="dropdown-item" href="~/Comunicaciones/ComunicacionesEstado?idEstado=1">Sin asignar</a></li>
+                                                    <li id="item-menu-comunicaciones-2"><a class="dropdown-item" href="~/Comunicaciones/ComunicacionesEstado?idEstado=3">Asignadas</a></li>
+                                                    <li id="item-menu-comunicaciones-6"><a class="dropdown-item" href="~/Comunicaciones/ComunicacionesEstado?idEstado=6">Leídas</a></li>
+                                                </ul>
+                                            </li>
+                                            <li id="menu-administracion" class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Administración
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown1">
+                                                    <li><a class="dropdown-item" href="~/Administracion/Usuarios">Usuarios</a></li>
+                                                    <li><a class="dropdown-item" href="~/Administracion/Grupos">Grupos</a></li>
+                                                    <li><a class="dropdown-item" href="~/Administracion/Perfiles">Perfiles</a></li>
+                                                    <li><a class="dropdown-item" href="~/Administracion/Organismos">Organismos</a></li>
+                                                </ul>
+                                            </li>
+                                            <li id="menu-configuracion" class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Configuración
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown2">
+                                                    <li><a class="dropdown-item" href="~/Configuracion/Parametros">Parametrizaciones</a></li>
+                                                    <li><a class="dropdown-item" href="~/Configuracion/Horario">Ejecución manual</a></li>
+                                                    <li><a class="dropdown-item" href="~/Configuracion/Avisos">Envío de emails</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="user_avatar">
+                                <span class="user_avatar__icon" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/avatar.svg" alt="" />
+                                </span>
+                                <ul class="dropdown-menu menu-avatar" aria-labelledby="dropdownMenuButton1">
+                                    <li>
+                                        <div class="menudrop__profile">
+                                            <span class="menudrop__profile--avatar" id="menu-siglas-nombre"></span>
+                                            <div class="menudrop__profile--text">
+                                                <span id="menu-login-usuario"></span>
+                                                <span id="menu-email-usuario"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="~/Administracion/UsuarioDetalle">Mi perfil</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/Administracion/UsuarioPass">Contraseña</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/Administracion/UsuarioGrupos">Grupos asignados</a>
+                                    </li>
+                                    <li>
+                                        <a href="" id="btn-cerrar-sesion">Cerrar sesión</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            @RenderBody()
+        </div>
+    </div>
+
+    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Información del usuario</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-cambiar-pwd" class="btn btn-primary">Cambiar contraseña</button>
+                    <button id="btn-usuario" class="btn btn-primary">Editar Usuario</button>
+                    <button id="btn-cerrar-sesion" class="btn btn-primary">Cerrar Sesión</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ayudaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title"><strong>Ayuda</strong></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 15px;">
+                    <div style="height: 100px;">
+                        <div style="width: 200px; float: left; margin-left: 50px;">
+                            <img src="data:image/png;base64,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" alt="mail" width="50" style="margin-left: 70px;">
+                            <br />
+                            <span>asesoriajuridica@psoe.es</span>
+                        </div>
+                        <div style="float: left;">
+                            <img src="data:image/png;base64,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" alt="tel" width="50" style="margin-left: 15px;">
+                            <br />
+                            <span>91 5820411</span>
+                        </div>
+                    </div>
+                    <a class="linkManual" style="cursor: pointer;">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOSIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE5IDE4Ij4NCiAgPGcgaWQ9IkdydXBvXzQzNiIgZGF0YS1uYW1lPSJHcnVwbyA0MzYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMzQ2Ljg5NCkiPg0KICAgIDxwYXRoIGlkPSJUcmF6YWRvXzE4MzgiIGRhdGEtbmFtZT0iVHJhemFkbyAxODM4IiBkPSJNMTM2NC4yMiw2aC0uMzI2VjNsLTMtM2gtMTAuMzI1YTEuNjc1LDEuNjc1LDAsMCwwLTEuNjc1LDEuNjc0VjZoLS4zMjVhMS42NzUsMS42NzUsMCwwLDAtMS42NzUsMS42NzRWMTMuMzNBMS42NzUsMS42NzUsMCwwLDAsMTM0OC41NjksMTVoLjMyNXYxLjMyMkExLjY3NSwxLjY3NSwwLDAsMCwxMzUwLjU2OSwxOGgxMS42NTFhMS42NzQsMS42NzQsMCwwLDAsMS42NzQtMS42NzRWMTVoLjMyNmExLjY3NCwxLjY3NCwwLDAsMCwxLjY3NC0xLjY3NFY3LjY3NEExLjY3NCwxLjY3NCwwLDAsMCwxMzY0LjIyLDZabS00LjMyNi01aC41ODZsMi40MTQsMi40MTJWNGgtMi4xMjhhLjg3My44NzMsMCwwLDEtLjg3Mi0uODcyWm0tMTAsLjY3MmEuNjc2LjY3NiwwLDAsMSwuNjc1LS42NzRoOC4zMjVWMy4xMjhBMS44NzIsMS44NzIsMCwwLDAsMTM2MC43NjYsNWgyLjEyOFY2aC0xM1ptOS4yLDguODg2YTIuNCwyLjQsMCwwLDEtLjMxMywxLjIyNywyLjI4MywyLjI4MywwLDAsMS0uNzkuODMzLDIuNDE2LDIuNDE2LDAsMCwxLS43ODYuMyw1LjIzMyw1LjIzMywwLDAsMS0xLjAxNC4wODZoLTEuNzI3VjguMWgxLjc3N2E0LjYyOCw0LjYyOCwwLDAsMSwxLjAzMy4xLDIuNCwyLjQsMCwwLDEsLjczMS4yODUsMi4yMzgsMi4yMzgsMCwwLDEsLjguODM1QTIuNTE4LDIuNTE4LDAsMCwxLDEzNTkuMSwxMC41NlpNMTM0OS42ODIsOC4xaDIuMDhhMy4yNywzLjI3LDAsMCwxLC43ODguMDgxLDEuODU2LDEuODU2LDAsMCwxLC41NjguMjQyLDEuMzA4LDEuMzA4LDAsMCwxLC40NTIuNSwxLjU3NCwxLjU3NCwwLDAsMSwuMTU3LjcyOCwxLjg1LDEuODUsMCwwLDEtLjExNi42NDQsMS40MDksMS40MDksMCwwLDEtLjMyOS41MjksMiwyLDAsMCwxLS42NTMuNDM5LDIuMzYzLDIuMzYzLDAsMCwxLS45LjE0OGgtLjc4NnYxLjZoLTEuMjY0Wm0xMy4yMTIsOC4yMjVhLjY3NS42NzUsMCwwLDEtLjY3NC42NzRoLTExLjY1MWEuNjc2LjY3NiwwLDAsMS0uNjc1LS42NzRWMTVoMTNabS41OS03LjI3NmgtMi4yNTR2LjkxM2gyLjA5di45NDloLTIuMDl2Mi4xaC0xLjI1N1Y4LjFoMy41MTFaIiBmaWxsPSIjYmIwMjIwIi8+DQogICAgPHBhdGggaWQ9IlRyYXphZG9fMTgzOSIgZGF0YS1uYW1lPSJUcmF6YWRvIDE4MzkiIGQ9Ik0xMzU3LjA1OCw5LjE4MmExLjQ0MywxLjQ0MywwLDAsMC0uNC0uMTMsMy45MzQsMy45MzQsMCwwLDAtLjYxLS4wMzVoLS4zMnYzLjA3MmguMzJhMy44NDgsMy44NDgsMCwwLDAsLjY2MS0uMDQxLDEuNDc5LDEuNDc5LDAsMCwwLC40MTEtLjE1LDEuMjEzLDEuMjEzLDAsMCwwLC41MDctLjUyOSwxLjg1NiwxLjg1NiwwLDAsMCwuMTYxLS44MTksMS44LDEuOCwwLDAsMC0uMTc2LS44MjlBMS4yMjgsMS4yMjgsMCwwLDAsMTM1Ny4wNTgsOS4xODJaIiBmaWxsPSIjYmIwMjIwIi8+DQogICAgPHBhdGggaWQ9IlRyYXphZG9fMTg0MCIgZGF0YS1uYW1lPSJUcmF6YWRvIDE4NDAiIGQ9Ik0xMzUxLjgzOSwxMC40NDVhLjc2Ljc2LDAsMCwwLC4zNTEtLjE1OC42MTEuNjExLDAsMCwwLC4xNzYtLjI1MiwxLjAzMSwxLjAzMSwwLDAsMCwuMDU0LS4zNTcuNTc3LjU3NywwLDAsMC0uMTEyLS4zNTcuNi42LDAsMCwwLS4yNi0uMjA4LDEuMTQ5LDEuMTQ5LDAsMCwwLS4zODUtLjA4N2MtLjEyNS0uMDA2LS4yOTEtLjAwOS0uNS0uMDA5aC0uMjE3djEuNDY3aC4zNjJBMi45NzQsMi45NzQsMCwwLDAsMTM1MS44MzksMTAuNDQ1WiIgZmlsbD0iI2JiMDIyMCIvPg0KICA8L2c+DQo8L3N2Zz4NCg==" alt="help" width="20" />
+                        <span>Abrir manual de usuario</span>
+                    </a>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+</script>
+<script src="~/js/script.min.js"></script>
+<script src="~/js/utils.js"></script>

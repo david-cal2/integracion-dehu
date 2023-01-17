@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Perfiles";
+}
+
+<div class="gn-body">
+    <div class="gn-body-wrapper">
+        <div class="body-aside">
+            <div class="aside-wrapper">
+                <aside class="aside">
+                    <nav class="main-nav">
+                        <ul>
+                            <li>
+                                <a href="~/Administracion/Usuarios">
+                                    <span class="nav_item nav_item__user"></span>
+                                    <span class="nav_text">Usuarios</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Grupos">
+                                    <span class="nav_item nav_item__groups"></span>
+                                    <span class="nav_text">Grupos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Perfiles" class="active_menu">
+                                    <span class="nav_item nav_item__profile"></span>
+                                    <span class="nav_text">Perfiles</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Organismos">
+                                    <span class="nav_item nav_item__organisms"></span>
+                                    <span class="nav_text">Organismos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
+        <div class="body-main">
+            <div class="main-section">
+                <div class="container-fluid mt-3 px-2">
+                    <ul class="breadcrumbs">
+                        <li><a href="">Administración</a></li>
+                        <li><a href="">Perfiles</a></li>
+                    </ul>
+                    <div class="content_title d-flex justify-content-between">
+                        <h1 class="title_menu">Perfiles</h1>
+                    </div>
+                    <div class="table_container">
+                        <div class="table_container__wrapper table_container__user__wrapper table_container__profile__wrapper profile_table">
+                            <table id="table" data-toggle="table" class="fixed_headers table_pendient" data-escape="false">
+                                <thead>
+                                    <tr>
+                                        <th class="profile-user__th" data-field="CodigoHtmlIconoPerfil"></th>
+                                        <th class="profile-user-profile__th" data-field="Nombre">Perfil</th>
+                                        <th class="profile-user-description__th" data-field="Descripcion">Descripción</th>
+                                        <th class="profile-user-notification__th" data-field="CodigoHtmlNotificaciones">Notificaciones</th>
+                                        <th class="profile-user-administration__th" data-field="CodigoHtmlAdministracion">Administración</th>
+                                        <th class="profile-user-configure__th" data-field="CodigoHtmlConfiguracion">Configuración</th>
+                                        <th data-field="PantallasInicio.Nombre">Inicio</th>
+                                        <th style="width: 5%" data-field="CodigoHtmlMenu"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var idPerfil = '@ViewBag.IdPerfil';
+    var idTipoEnvios = '0';
+</script>
+<style>
+    #table thead tr th:last-child {
+        width: 50px;
+    }
+</style>
+<script src="~/js/shared/layout.min.js"></script>
+<script src="~/js/administracion/perfiles.js"></script>

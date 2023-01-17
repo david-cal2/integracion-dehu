@@ -1,0 +1,319 @@
+$btn-font-size: 16;
+$btn-font-size-sm: 14;
+
+@mixin btn-Default {
+    border-radius: $br_box;
+    background-color: $c_bgButton;
+    color: $c_text;
+    font-size: rem($btn-font-size);
+    line-height: 20px;
+    font-weight: 400;
+    padding: em(8,$btn-font-size) em(15,$btn-font-size) 0.5rem;
+    cursor: pointer;
+    &:hover {
+        color: $w;
+        background-color: $c_principal;
+    }
+    &:focus {
+        border-width: 1px;
+    }
+}
+@mixin btn-small {
+    border-radius: $br_btn;
+    font-size: rem($btn-font-size-sm);
+    line-height: 1.4;
+    font-weight: 500;
+    padding: 4px em(11,$btn-font-size-sm) em(3,$btn-font-size-sm);
+}
+
+@mixin btn-primary() {
+    color: $w;
+    background-color: $c_principal;
+    border-color: $c_principal;
+    font-family: $ff;
+    &:hover {
+        color: $c_principal;
+        background-color: $w;
+        border-color: $c_principal;
+    }
+    
+}
+
+@mixin btn-secondary() {
+    color: $c_text;
+    background-color: $w;
+    border-color: $c_text;
+    font-family: $ff;
+    &:hover {
+        color: $w;
+        background-color: $c_principal;
+        border-color: $c_principal;
+    }
+   
+}
+@mixin btn-success() {
+    color: $b;
+    background-color: $c_correct;
+    border-color: $c_correct;
+    font-family: $ff;
+    &:hover {
+        color: $b;
+        background-color: $w;
+        border-color: $c_correct;
+    }
+}
+@mixin btn-danger() {
+    color: $c_alert;
+    background-color: $w;
+    border-color: $c_alert;
+    font-family: $ff;
+    &:hover {
+        color: $w;
+        background-color: $c_alert;
+        border-color: $c_alert;
+    }
+  
+}
+@mixin btn-warning() {
+    color: $b;
+    background-color: $c_warning;
+    border-color: $c_warning;
+    font-family: $ff;
+    &:hover {
+        color: $b;
+        background-color: $w;
+        border-color: $c_warning;
+    }
+    
+}
+@mixin btn-info() {
+    color: $c_text;
+    background-color: $w;
+    border-color: $w;
+    font-family: $ff;
+    &:hover {
+        color: $c_text;
+        background-color: $c_bgButton;
+        border-color: $c_bgButton;
+    }
+    
+}
+@mixin btn-light() {
+    color: $b;
+    background-color: $c_bg;
+    border-color: $c_bg;
+    font-family: $ff;
+    &:hover {
+        color: $b;
+        background-color: $c_bg;
+        border-color: $form_c_border;
+    }
+   
+}
+@mixin btn-dark() {
+    color: $w;
+    background-color: $b;
+    border-color: $b;
+    font-family: $ff;
+    &:hover {
+        color: $w;
+        background-color: $c_text;
+        border-color: $c_text;
+    }
+  
+}
+@mixin btn-link() {
+    color: $c_text;
+    background-color: $trans;
+    border-color: $trans;
+    font-family: $ff;
+    padding-left: 0;
+    padding-right: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    text-decoration: underline;
+    &:hover {
+        color: $c_principalOsc;
+        background-color: $trans;
+        border-color: $trans;
+        text-decoration: none;
+    }
+   
+}
+
+
+
+.btn,
+.ui-widget .btn,
+button,
+button[type="submit"],
+input[type="submit"],
+input[type="button"] {
+    @include btn-Default;
+    padding-top: 6px;
+}
+.btn {
+    + .btn {
+        margin-left: 24px;
+    }
+    &.btn-primary {
+        @include btn-primary;
+    }
+    &.btn-secondary {
+        @include btn-secondary;
+    }
+    &.btn-success {
+        @include btn-success;
+    }
+    &.btn-danger {
+        @include btn-danger;
+    }
+    &.btn-warning {
+        @include btn-warning;
+    }
+    &.btn-info {
+        @include btn-info;
+    }
+    &.btn-light {
+        @include btn-light;
+    }
+    &.btn-dark {
+        @include btn-dark;
+    }
+    &.btn-link {
+        @include btn-link;
+    }
+}
+
+.btn-sm {
+    @include btn-small;
+}
+
+.btn-primary{
+    background-color: $c_principal;
+    color: $w;
+    font-weight: bold;
+    font-size: rem(14);
+    &:hover{
+        background-color: $c_principalOsc;
+    }
+}
+
+.btn-secondary{
+    background-color: #F3F3F3;
+    color: black;
+    font-size: rem(14);
+    font-weight: bold;
+}
+.document-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    
+}
+.doc-link {
+    display: flex;
+    margin-bottom: 8px;
+    text-decoration: none;
+    font-weight: normal;
+
+    & span:last-of-type {
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    .document {
+        display: flex;
+        text-decoration: underline;
+
+        &::before {
+            content: "";
+            background-repeat: no-repeat;
+            background-position: center;
+            display: inline-block;
+            margin-right: 5px;
+            width: 20px;
+            height: 20px;
+        }
+
+        &.doc_doc::before {
+            background-image: url("#{$img}file_doc.svg");
+        }
+
+        &.doc_doc_up::before {
+            background-image: url("#{$img}file_doc_up.svg");
+        }
+
+        &.doc_pdf::before {
+            background-image: url("#{$img}file-pdf.svg");
+        }
+
+        &.doc_file::before {
+            background-image: url("#{$img}file-file.svg");
+        }
+
+        &.doc_jpg::before {
+            background-image: url("#{$img}file-jpg.svg");
+        }
+
+        &.doc_zip::before {
+            background-image: url("#{$img}file-zip.svg");
+        }
+    }
+
+    .doc_size {
+        text-decoration: none;
+        display: inline-block;
+        margin-left: 4px;
+    }
+}
+.breadcrumbs{
+    padding-left: 17px;
+    margin-bottom: 0;
+}
+.breadcrumbs li {
+    display: inline-block;
+    a{
+        font-size: rem(12);
+        font-weight: 500;
+        color: black;
+    }
+    &:last-of-type{
+        a{
+        color: #6E6E6E;
+        font-weight: normal;
+        text-decoration: none;
+        }
+    }
+  }
+  .breadcrumbs li:after {
+    content: ">";
+    margin: 0 5px;
+  }
+  .breadcrumbs li:last-child:after {
+    content: none;
+  }
+
+  .btn-primary, .btn-secondary{
+    height: 32px;
+  }
+
+  .high-users{
+    display: flex;
+    &::before{
+        content: "";
+        display: inline-block;
+        background-image: url("#{$img}alta-usuarios.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+    }
+    &.high-groups{
+        &::before{
+            margin-right: 10px;
+            background-image: url("#{$img}group-icon.svg");
+        }
+    }
+  }

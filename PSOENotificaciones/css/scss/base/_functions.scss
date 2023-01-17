@@ -1,0 +1,75 @@
+@use 'sass:math';
+// EM & REM functions
+@function em($pixels, $context: $base-size) {
+	$getCalc: math.div($pixels,$context);
+    @return $getCalc * 1em;
+}
+@function rem($pixels) {
+	$getCalc: math.div($pixels,$base-size);
+    @return $getCalc * 1rem;
+}
+
+//line-height
+@function lh($pixels, $font-size) {
+    @return #{math.div($pixels,$font-size)};
+}
+
+// Letter-spacing photoshop conversor
+@function ls($value) {
+    @return math.div($value , 1000) * 1em;
+}
+
+// Viewport width calculator
+@function vwCalc($value, $vw) {
+    @return #{math.div((100* $value) , $vw)}vw;
+}
+// Background-image with padding-top XXX% calculator
+@function ptopCalc($value, $witdh) {
+    @return #{( math.div((100* $value) , $witdh)) + '%'};
+}
+
+// # to %23 for URL-encoded SVG
+// $string: #1ef | #11eeff | hsl(184, 100%, 53%) 
+@function svg23($string) {
+	@if type-of($string)=='color'and str-index(#{$string}, '#')==1 {
+		$hex: str-slice(ie-hex-str($string), 4);
+		$string: unquote('#{$hex}');
+
+		@return '%23'+$string;
+	}
+	@return $string;
+}
+
+//SVG inliner
+@function svg-url($svg){
+	@if not str-index($svg,xmlns) {
+		$svg: str-replace($svg, '<svg','<svg xmlns="http://www.w3.org/2000/svg"');
+	}
+	$encoded:'';
+	$slice: 2000;
+	$index: 0;
+	$loops: ceil(str-length($svg)/$slice);
+	@for $i from 1 through $loops {
+		$chunk: str-slice($svg, $index, $index + $slice - 1);
+		$chunk: str-replace($chunk, '"', '\'');
+		$chunk: str-replace($chunk, '%', '%25');
+		$chunk: str-replace($chunk, '#', '%23');
+		$chunk: str-replace($chunk, '{', '%7B');
+		$chunk: str-replace($chunk, '}', '%7D');
+		$chunk: str-replace($chunk, '<', '%3C');
+		$chunk: str-replace($chunk, '>', '%3E');
+		$encoded: #{$encoded}#{$chunk};
+		$index: $index + $slice;
+	}
+	@return url("data:image/svg+xml,#{$encoded}");
+}
+
+//  Helper function to replace characters in a string
+@function str-replace($string, $search, $replace: '') {
+	$index: str-index($string, $search);
+	@return if($index,
+		str-slice($string, 1, $index - 1) + $replace +
+		str-replace(str-slice($string, $index +
+		str-length($search)), $search, $replace),
+		$string);
+}

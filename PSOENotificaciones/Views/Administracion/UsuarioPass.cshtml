@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "UsuarioPass";
+}
+
+<div class="gn-body">
+    <div class="gn-body-wrapper">
+        <div class="body-aside">
+            <div class="aside-wrapper">
+                <aside class="aside">
+                    <nav class="main-nav">
+                        <ul>
+                            <li>
+                                <a href="~/Administracion/UsuarioDetalle">
+                                    <span class="nav_item nav_item__mipfi"></span>
+                                    <span class="nav_text">Mi perfil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/UsuarioPass" class="active_menu">
+                                    <span class="nav_item nav_item__pass"></span>
+                                    <span class="nav_text">Contraseña</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/UsuarioGrupos">
+                                    <span class="nav_item nav_item__asigngroups"></span>
+                                    <span class="nav_text">Grupos asignados</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
+        <div class="body-main">
+            <div class="main-section">
+                <div class="container-fluid mt-3 px-2">
+                    <ul class="breadcrumbs">
+                        <li><a href="">Área de usuario</a></li>
+                        <li><a href="">Contraseña</a></li>
+                    </ul>
+                    <div class="content_title title_detalle">
+                        <h1 class="title_menu">Contraseña</h1>
+                    </div>
+                    <div class="deltail-container">
+                        <div class="deltail-container__wrapper">
+                            <div class="row">
+                                <div class="col exceptiontab_content__information">
+                                    <p>En este apartado puede actualizar su contraseña. Recuerde que la nueva contraseña</p>
+                                    <p>debe contener mínimo 8 caracteres, alguna mayúscula y algun número.</p>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-2 me-4">
+                                    <div class="acces-container__form">
+                                        <label for="pass" class="form-label">Contraseña actual</label>
+                                        <input type="password" class="form-control" id="password-actual" value="">
+                                        <div class="password_container pass-eye pass-eye-1">
+                                        </div>
+                                        <div id="passActualError" class="invalid-feedback pass-feedback d-block mt-2 display-none">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 me-4">
+                                    <div class="acces-container__form">
+                                        <label for="pass" class="form-label">Introducir nueva contraseña</label>
+                                        <input type="password" class="form-control" id="password-nueva-1" value="">
+                                        <div class="password_container pass-eye pass-eye-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 me-4">
+                                    <div class="acces-container__form">
+                                        <label for="pass" class="form-label">Repetir contraseña</label>
+                                        <input type="password" class="form-control" id="password-nueva-2" value="">
+                                        <div class="password_container pass-eye pass-eye-3">
+                                        </div>
+                                        <div id="mensajeIncorrecto" class="invalid-feedback pass-feedback d-block mt-2 display-none">
+                                            <span id="mensajePass">El campo no coincide con el de arriba</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-0">
+                                <div class="col d-flex mt-3">
+                                    <a href=""><button class="me-4" id="button-guardar">Aceptar</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="advert-icon"></span>
+                        <div class="modal-content__text">
+                            <h5 id="mensaje" style="padding: 5%;"></h5>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var idPerfil = '@ViewBag.IdPerfil';
+    var idTipoEnvios = '0';
+</script>
+<script src="~/js/shared/layout.min.js"></script>
+<script src="~/js/administracion/usuarioPass.js"></script>

@@ -1,0 +1,246 @@
+﻿@{
+    ViewBag.Title = "GrupoDetalle";
+}
+
+<div class="gn-body">
+    <div class="gn-body-wrapper">
+        <div class="body-aside">
+            <div class="aside-wrapper">
+                <aside class="aside">
+                    <nav class="main-nav">
+                        <ul>
+                            <li>
+                                <a href="~/Administracion/Usuarios">
+                                    <span class="nav_item nav_item__user"></span>
+                                    <span class="nav_text">Usuarios</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Grupos" class="active_menu">
+                                    <span class="nav_item nav_item__groups"></span>
+                                    <span class="nav_text">Grupos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Perfiles">
+                                    <span class="nav_item nav_item__profile"></span>
+                                    <span class="nav_text">Perfiles</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Administracion/Organismos">
+                                    <span class="nav_item nav_item__organisms"></span>
+                                    <span class="nav_text">Organismos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
+        <div class="body-main">
+            <div class="main-section">
+                <div class="container-fluid mt-3 px-2">
+                    <ul class="breadcrumbs">
+                        <li><a href="">Administración</a></li>
+                        <li><a href="~/Administracion/Grupos">Grupos</a></li>
+                        <li><a href="">Grupo detalle</a></li>
+                    </ul>
+                    <div class="content_title d-flex justify-content-between">
+                        <h1 class="title_menu" id="tituloGrupo"></h1>
+                    </div>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="exception-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Resumen</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="user-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuarios</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="organisms-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Organismos</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active exceptiontab_content" id="home" role="tabpanel" aria-labelledby="exception-tab">
+                            <div class="container" id="conGrupo">
+                                <div class="content_title">
+                                    <h7>Datos del grupo</h7>
+                                </div>
+                                <div class="table_container">
+                                    <div class="form-group">
+                                        <input type="hidden" id="identificador" value="-1">
+                                        <label for="txtNombre">Nombre:</label>
+                                        <input type="text" class="form-control" id="txtNombre" style="width: 500px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtDescripcion">Descripción:</label>
+                                        <input type="text" class="form-control" id="txtDescripcion" style="width: 500px;">
+                                    </div>
+                                    @*<div class="col">
+                                            <div class="form-check">
+                                                <input class="styled-checkbox" id="chkActivo"
+                                                       type="checkbox" value="value1" checked>
+                                                <label for="chkActivo">Activo</label>
+                                            </div>
+                                        </div>*@
+                                    <div class="col" style="padding-top: 10px;">
+                                        <button class="btn-primary me-4" id="btnAceptar">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade exceptiontab_content usertab_content" id="profile" role="tabpanel" aria-labelledby="user-tab">
+                            <div class="container" id="conUsuarios">
+                                <div class="content_title">
+                                    <h7>Usuarios</h7>
+                                </div>
+                                <div class="table_container">
+                                    <div class="table_container__wrapper">
+                                        <table id="tablaUsuarios"
+                                               data-toggle="table"
+                                               data-toolbar="#toolbar"
+                                               class="fixed_headers"
+                                               data-escape="false"
+                                               data-pagination="true">
+                                            <thead>
+                                                <tr>
+                                                    <th data-field="ID" class="hidden">ID</th>
+                                                    <th data-field="Usuarios.Nombre" data-sortable="true">Nombre</th>
+                                                    <th data-field="Usuarios.LoginUsuario">Login usuario</th>
+                                                    <th data-field="Usuarios.Email">Email</th>
+                                                    <th data-field="Usuarios.Perfiles.Nombre">Perfil</th>
+                                                    <th data-force-hide="true" data-field="Usuarios.CodigoHtmlEliminar">Eliminar</th>
+                                                    @*<th data-field="CodigoHtmlActivo">Activo</th>*@
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div class="col">
+                                            <button class="btn-primary me-4" id="btnAgregarUsuario">Agregar Usuario</button>
+                                        </div>
+                                        <div class="container" id="conTodosUsuarios" style="display: none;">
+                                            <div class="table_container__wrapper">
+                                                <table id="tableTodosUsuarios"
+                                                       data-toggle="table"
+                                                       class="fixed_headers"
+                                                       data-escape="false"
+                                                       data-pagination="true"
+                                                       data-search="true">
+                                                    <thead>
+                                                        <tr>
+                                                            <th data-field="ID" class="hidden">ID</th>
+                                                            @*<th data-force-hide="true" data-field="CodigoHtmlCheckBox"></th>*@
+                                                            <th data-field="Nombre" data-sortable="true">Nombre</th>
+                                                            <th data-force-hide="true" data-field="CodigoHtmlAsignar">Asignar</th>
+                                                            @*<th data-field="CodigoHtmlActivo" data-sortable="true">Activo</th>*@
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade exceptiontab_content usertab_content" id="contact" role="tabpanel" aria-labelledby="organisms-tab">
+                            <div class="container" id="conOrganismos">
+                                <div class="content_title">
+                                    <h7>Organismos</h7>
+                                </div>
+                                <div class="table_container">
+                                    <div class="table_container__wrapper">
+                                        <table id="tablaOrganismos"
+                                               data-toggle="table"
+                                               data-toolbar="#toolbar"
+                                               data-search="true"
+                                               class="fixed_headers"
+                                               data-escape="false"
+                                               data-pagination="true">
+                                            <thead>
+                                                <tr>
+                                                    <th data-field="ID" class="hidden">ID</th>
+                                                    <th data-field="OrganismosEmisores.AdministracionPublica" data-sortable="true">Administración Pública</th>
+                                                    <th data-field="OrganismosEmisores.Dir3OrganismoRaiz" data-sortable="true">DIR3 Organismo Raíz</th>
+                                                    <th data-field="OrganismosEmisores.OrganismoRaiz" data-sortable="true">Organismo Raíz</th>
+                                                    <th data-field="OrganismosEmisores.Dir3OrganismoEmisor" data-sortable="true">DIR3 Organismo Emisor</th>
+                                                    <th data-field="OrganismosEmisores.OrganismoEmisor" data-sortable="true">Organismo Emisor</th>
+                                                    <th data-field="OrganismosEmisores.Provincias.Provincia" data-sortable="true">Provincia</th>
+                                                    <th data-field="OrganismosEmisores.ComunidadesAutonomas.ComunidadAutonoma" data-sortable="true">Comunidad</th>
+                                                    <th data-force-hide="true" data-field="OrganismosEmisores.CodigoHtmlEliminar"></th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div class="col">
+                                            <button class="btn-primary me-4" id="btnAgregarOrganismo">Agregar Organismo</button>
+                                        </div>
+                                        <div class="table_container__wrapper" id="conTodosOrganismos" style="display: none;">
+                                            <table id="tableTodosOrganismos"
+                                                   data-toggle="table"
+                                                   data-toolbar="#toolbar"
+                                                   data-search="true"
+                                                   class="fixed_headers"
+                                                   data-pagination="true"
+                                                   data-escape="false"
+                                                   data-url="../json/organismos.json">
+                                                <thead>
+                                                    <tr>
+                                                        <th data-field="ID" class="hidden">ID</th>
+                                                        <th data-field="AdministracionPublica" data-sortable="true">Administración Pública</th>
+                                                        <th data-field="Dir3OrganismoRaiz" data-sortable="true">DIR3 Organismo Raíz</th>
+                                                        <th data-field="OrganismoRaiz" data-sortable="true">Organismo Raíz</th>
+                                                        <th data-field="Dir3OrganismoEmisor" data-sortable="true">DIR3 Organismo Emisor</th>
+                                                        <th data-field="OrganismoEmisor" data-sortable="true">Organismo Emisor</th>
+                                                        <th data-field="Provincias.Provincia" data-sortable="true">Provincia</th>
+                                                        <th data-field="ComunidadesAutonomas.ComunidadAutonoma" data-sortable="true">Comunidad</th>
+                                                        <th data-force-hide="true" data-field="CodigoHtmlAsignar">Asignar</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="advert-icon"></span>
+                        <div class="modal-content__text">
+                            <h5 id="mensaje" style="padding: 5%;"></h5>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="overlay">
+    <div class="cv-spinner">
+        <span class="spinner"></span>
+    </div>
+</div>
+
+<script>
+    var idPerfil = '@ViewBag.IdPerfil';
+    var idGrupoEditado = '@ViewBag.IdGrupoEditado';
+</script>
+<style>
+    #tablaOrganismos thead tr th:last-child {
+        width: 50px;
+    }
+</style>
+<script src="~/js/shared/layout.min.js"></script>
+<script src="~/js/administracion/grupoDetalle.min.js"></script>

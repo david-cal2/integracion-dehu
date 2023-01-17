@@ -1,0 +1,287 @@
+﻿@{
+    ViewBag.Title = "AuditoriaEnvio";
+}
+
+<div class="gn-body">
+    <div class="gn-body-wrapper">
+        <div class="body-aside">
+            <div class="aside-wrapper">
+                <aside class="aside">
+                    <nav class="main-nav menu-lateral">
+                        <ul>
+                            <li id="item-menu-notificaciones-estado-1">
+                                <a id="liSinAsignar" href="~/Auditoria/AuditoriaEnvio">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Auditoria Envío</span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-2">
+                                <a id="liEnAlerta" href="~/Auditoria/EjecutarTareas">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Ejecutar Tareas</span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-3">
+                                <a id="liAsignadas" href="~/Auditoria/ListadoExcepciones">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Listado Excepciones</span>
+                                </a>
+                            </li>
+                            <li id="item-menu-notificaciones-estado-4">
+                                <a id="liComparecidas" href="~/Auditoria/LogTareaLocaliza">
+                                    <span class="nav_item nav_item__appeared"></span>
+                                    <span class="nav_text">Log Tarea Localiza</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
+        <div class="body-main">
+            <main class="body-main-wrapper">
+                <div class="main-section">
+                    <div class="container-fluid px-2">
+                        <div class="content_title">
+                            <h1>Auditoria de envíos</h1>
+                        </div>
+                        <div class="deltail-container">
+                            <div class="deltail-container__wrapper">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <input type="text" class="form-control" id="inputIdentificador" placeholder="identificador">
+                                    </div>
+                                    <div class="col-2" style="padding-left: 5px;">
+                                        <button class="btn-primary me-4" id="btnBuscar">BUSCAR</button>
+                                    </div>
+                                    <span id="tipoEnvio"></span>
+                                </div>
+                            </div>
+
+                            <div id="div-localiza" class="deltail-container__wrapper display-none">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div>
+                                            <h5>Petición Localiza</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Fecha:</dt>
+                                                    <dd id="fechaLocaliza"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Tipo Ejecución:</dt>
+                                                    <dd id="tipoPeticionLocaliza"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div>
+                                            <h5>Respuesta Localiza</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Fecha:</dt>
+                                                    <dd id="fechaRespuesta"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Código Respuesta:</dt>
+                                                    <dd id="codigoRespuesta"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Descripción Respuesta:</dt>
+                                                    <dd id="descripcionRespuesta"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-10">
+                                                <dl>
+                                                    <dt>Xml Respuesta:</dt>
+                                                    <textarea id="xmlRepuestaLocaliza" name="xmlRepuestaLocaliza" cols="100" rows="3" style="height: 50px !important;"></textarea>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="div-acceso" class="deltail-container__wrapper display-none">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div>
+                                            <h5>Petición Acceso</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Fecha:</dt>
+                                                    <dd id="fechaAcceso"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-3">
+                                                <dl>
+                                                    <dt>Usuario:</dt>
+                                                    <dd id="usuarioAcceso"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Concepto:</dt>
+                                                    <dd id="conceptoAcceso"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div>
+                                            <h5>Respuesta Acceso</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Fecha:</dt>
+                                                    <dd id="fechaRespuestaAcceso"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Código Respuesta:</dt>
+                                                    <dd id="codigoRespuestaAcceso"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Descripción Respuesta:</dt>
+                                                    <dd id="descripcionRespuestaAcceso"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div>
+                                            <h5>Detalle Documento</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Nombre:</dt>
+                                                    <dd id="nombreDocuemnto"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <dl>
+                                                    <dt>Mime Type:</dt>
+                                                    <dd id="mimeType"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div>
+                                            <h5>Hash Documento</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Hash:</dt>
+                                                    <dd id="hash"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Algoritmo:</dt>
+                                                    <dd id="algoritmo"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="div-acuse" class="deltail-container__wrapper display-none">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div>
+                                            <h5>Acuse Pdf</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <dl>
+                                                    <dt>Nombre Acuse:</dt>
+                                                    <dd id="nombreAcuse"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-4">
+                                                <dl>
+                                                    <dt>Mime Type:</dt>
+                                                    <dd id="mimeTypeAcuse"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="deltail-container__wrapper">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div>
+                                            <h5>Cambios de estado</h5>
+                                        </div>
+                                        <table id="tableEstados"
+                                               data-toggle="table"
+                                               data-escape="false"
+                                               class="fixed_headers">
+                                            <thead>
+                                                <tr>
+                                                    <th class="columna-50" data-field="CodigoHtmlEstadoEnvio" data-force-hide="true">Estado</th>
+                                                    <th data-field="Fecha" data-formatter="dateFormatAll">Fecha</th>
+                                                    <th data-field="CodigoHtmlUsuario">Usuario</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <div class="col-5" style="padding-left: 50px;">
+                                        <div>
+                                            <h5>Grupos asignados</h5>
+                                        </div>
+                                        <table id="tableGrupos"
+                                               data-toggle="table"
+                                               data-escape="false"
+                                               class="fixed_headers">
+                                            <thead>
+                                                <tr>
+                                                    <th class="columna-50" data-field="CodigoHtmlGrupo">Grupo</th>
+                                                    <th data-field="Fecha" data-formatter="dateFormatAll">Fecha</th>
+                                                    <th data-field="CodigoHtmlUsuario">Usuario</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/auditoria/auditoriaEnvio.js"></script>

@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "LoginNuevaPass";
+}
+
+<div class="acces-container__wrapper mail-container">
+    <h2>Nueva contraseña</h2>
+    <p class="color_b">La contraseña tiene que contener:</p>
+    <ul>
+        <li class="passinfo_ico exclamation_ico">Mínimo 8 caracteres</li>
+        <li class="passinfo_ico exclamation_ico">Algún carácter en mayúscula</li>
+        <li class="passinfo_ico exclamation_ico">Algún carácter numérico</li>
+    </ul>
+    <!--Si añadimos la clase "pass_hidden" en el siguiente div pone el icono del ojo tachado-->
+    <div class="acces-container__form mt-1 mb-3">
+        <label for="pass" class="form-label">Introducir nueva contraseña</label>
+        <input type="password" class="form-control" id="password-nueva-1" value="">
+        <div class="password_container pass-eye pass-eye-1">
+        </div>
+    </div>
+    <!--Si añadimos la clase "pass_hidden" en el siguiente div pone el icono del ojo tachado-->
+    <div class="acces-container__form">
+        <label for="passnew" class="form-label">Repetir contraseña</label>
+        <input type="password" class="form-control" id="password-nueva-2" value="">
+        <div class="password_container pass-eye pass-eye-2">
+        </div>
+    </div>
+    <div id="mensajeIncorrecto" class="invalid-feedback pass-feedback d-block mt-2 display-none">
+        <span id="mensajePass">El campo no coincide con el de arriba</span>
+    </div>
+    <div class="acces-container__form">
+        <label class="form-label">DNI</label>
+        <input type="text" class="form-control" id="dni-usuario" placeholder="Ej: 12345678H" maxlength="9" autocomplete="off">
+    </div>
+    <!--Para que aparezca el botón habilitado quitamos la clase "btn-disabled"-->
+    <button id="button-guardar" class="btn mt-4" type="submit">Guardar</button>
+</div>
+
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content errormodal__content">
+            <div class="modal-body">
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="error-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>Se ha producido un error</h4>
+                            <p>No se ha realizado la acción.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dniErrorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content validmodal__content">
+            <div class="modal-body">
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="advert-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>DNI Validación incorrecta</h4>
+                            <p>El DNI no coincide con el registrado en el sistema.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dniErrorBloqueadoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content validmodal__content">
+            <div class="modal-body">
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="advert-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>DNI Validación incorrecta</h4>
+                            <p>El DNI no coincide con el registrado en el sistema.</p>
+                            <p>Ha superado el número de intentos para validar el DNI. Se ha bloqueado su usuario.</p>
+                        </div>
+                    </div>
+                    <a href="~/Home/Login">
+                        <button type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="validModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content validmodal__content">
+            <div class="modal-body">
+                <div class="modal-content__container">
+                    <div class="modal-content__wrapper">
+                        <span class="valid-icon"></span>
+                        <div class="modal-content__text">
+                            <h4>Acción correcta</h4>
+                            <p>Se ha cambiado la contraseña correctamente</p>
+                        </div>
+                    </div>
+                    <div class="btn_container">
+                        <button id="button-aceptar" type="button" class="modal_button" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var idUsuario = '@ViewBag.IdUsuario';
+</script>
+@*<script src="~/js/shared/layout.js"></script>*@
+<script src="~/js/home/loginNuevaPass.js"></script>

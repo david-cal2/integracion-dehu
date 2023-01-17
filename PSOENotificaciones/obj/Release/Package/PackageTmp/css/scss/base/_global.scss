@@ -1,0 +1,46 @@
+/* RESETAR VALORES DEL NAVEGADOR */
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+
+/************* GENERALES *************/
+html {
+    font-size: #{$base-size}px; // root em: This means that 1rem equals the font size of the html element 
+}
+body {
+    font-family: $ff;
+}
+
+header {
+    background-color: inherit;
+    position: unset;
+    overflow: inherit;
+    z-index: unset;
+}
+
+pre {
+	white-space: normal;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+
+
+// font family
+body .ui-widget,
+body .ui-widget * {
+    font-family: $ff;
+}

@@ -1,0 +1,44 @@
+/* Estilos personalizados de la aplicación */
+
+//Base
+@import 'base/functions';
+@import 'base/variables';
+
+@import 'bootstrap/bootstrap.scss';
+
+@import 'base/font';
+@import 'component/icons';
+//@import 'base/normalize';
+@import 'base/global';
+@import 'base/accessibility';
+
+@import 'layout/theme';
+
+//Components
+@import 'component/general-compo';
+@import 'component/animations';
+@import 'component/breadcrumbs';
+@import 'component/buttons';
+@import 'component/form';
+@import 'component/tables';
+@import 'component/tabs';
+@import 'component/pagination';
+@import 'component/tooltip';
+@import 'component/modals';
+@import 'component/inbox-card';
+@import 'component/aside';
+@import 'component/offcanvas';
+
+//Layout
+@import 'layout/general-layout'; //grid general del proyecto
+@import 'layout/header';
+@import 'layout/main-navigation';
+@import 'layout/sidebar';
+@import 'layout/content';
+@import 'layout/footer';
+@import 'layout/login';
+
+//Pages
+// @import 'pages/seccion-principal';
+
+//sass --watch css/scss/main.scss:css/style.css
